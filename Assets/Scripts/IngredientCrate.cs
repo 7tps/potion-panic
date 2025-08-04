@@ -13,7 +13,10 @@ public class IngredientCrate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnPoint = transform;
+        if (spawnPoint == null)
+        {
+            spawnPoint = transform;
+        }
     }
 
     // Update is called once per frame
@@ -27,6 +30,6 @@ public class IngredientCrate : MonoBehaviour
 
     public void spawnIngredient()
     {
-        Instantiate(ingredientPrefab, spawnPoint.position, Quaternion.identity);
+        Instantiate(ingredientPrefab, spawnPoint.position, Quaternion.identity, this.transform);
     }
 }
