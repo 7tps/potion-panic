@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public bool movementDisabled;
     public float moveSpeed = 10;
+
+    public float movementX;
+    public float movementY;
     
     void Awake()
     {
@@ -38,36 +41,14 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        
-        float[] movementInput = GetMovementInput();
+
+        float[] movementInput = new float[2];
+        movementInput[0] = Input.GetAxisRaw("Horizontal");
+        movementInput[1] = Input.GetAxisRaw("Vertical");
 
         Vector2 movement = new Vector2(movementInput[0], movementInput[1]).normalized;
         rb.velocity = movement * moveSpeed;
         
-    }
-
-    public float[] GetMovementInput()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            return new float[] { 0, 1 };
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            return new float[] { 0, -1 };
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            return new float[] { -1, 0 };
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            return new float[] { 1, 0 };
-        }
-        else
-        {
-            return new float[] { 0, 0 };
-        }
     }
     
 }
