@@ -19,33 +19,9 @@ public class TitleScreenButtonControl : MonoBehaviour
     public GameObject keymapsPanel;
     public GameObject settingsPanel;
 
-    // Start of the popup implementation
-    public GameObject popupPrefab;
-    public GameObject parent;
-    public static TitleScreenButtonControl instance;
-
-    public string testTitle;
-    public string testDescription;
-
-    [ContextMenu("Test Notification")]
-    public void TestPopup()
-    {
-        ShowPopupMenu(testTitle, testDescription);
-    }
-
-    public void ShowPopupMenu(string title, string description)
-    {
-        GameObject popup = Instantiate(popupPrefab, parent.transform);
-        PopUpControl popup_ctrl = popup.GetComponent<PopUpControl>();
-        popup_ctrl.AddText(title, description);
-    }
-    // end
-
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
-
         startGameButton.onClick.AddListener(startGame);
         keymapsButton.onClick.AddListener(showKeymaps);
         settingsButton.onClick.AddListener(showSettings);
