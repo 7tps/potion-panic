@@ -7,6 +7,8 @@ public class Ingredient : MonoBehaviour
 
     public RecipeController.Ingredients type;
 
+    public SpriteRenderer sr;
+    
     public bool needToCut;
     public bool isCut = false;
     
@@ -14,6 +16,8 @@ public class Ingredient : MonoBehaviour
     void Start()
     {
         needToCut = RecipeController.instance.needToCut(type);
+        sr = GetComponent<SpriteRenderer>();
+        sr.sprite = RecipeController.instance.ingredientSprites[(int)type];
     }
 
     // Update is called once per frame

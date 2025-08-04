@@ -8,12 +8,12 @@ public class RecipeController : MonoBehaviour
 
     public enum Ingredients
     {
+        avocado,
         basil,
-        ginger,
         garlic,
+        ginger,
         parsnip,
         watermelon,
-        avocado
     }
 
     public Sprite[] ingredientSprites;
