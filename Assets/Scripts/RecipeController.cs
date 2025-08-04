@@ -6,7 +6,7 @@ using UnityEngine;
 public class RecipeController : MonoBehaviour
 {
 
-    public enum Ingredients
+    public enum IngredientType
     {
         avocado,
         basil,
@@ -17,6 +17,7 @@ public class RecipeController : MonoBehaviour
     }
 
     public Sprite[] ingredientSprites;
+    public List<Recipe> validRecipes;
     
     public static RecipeController instance;
 
@@ -44,12 +45,12 @@ public class RecipeController : MonoBehaviour
         
     }
 
-    public bool needToCut(Ingredients ingredient)
+    public bool needToCut(IngredientType ingredient)
     {
-        if (ingredient == Ingredients.basil
-            || ingredient == Ingredients.ginger
-            || ingredient == Ingredients.garlic
-            || ingredient == Ingredients.parsnip)
+        if (ingredient == IngredientType.basil
+            || ingredient == IngredientType.ginger
+            || ingredient == IngredientType.garlic
+            || ingredient == IngredientType.parsnip)
         {
             return false;
         }
@@ -59,32 +60,86 @@ public class RecipeController : MonoBehaviour
         }
     }
 
-    public bool isRecipe(Ingredients[] ingredientsArray)
+    public bool isRecipe(List<Ingredient> inputArray)
     {
-        if (ingredientsArray.Contains(Ingredients.avocado)
-            && ingredientsArray.Contains(Ingredients.basil))
+        
+        IngredientType[] ingredientsArray = new IngredientType[inputArray.Count];
+        for (int i = 0; i < inputArray.Count; i++)
+        {
+            ingredientsArray[i] = inputArray[i].type;
+        }
+        
+        if (ingredientsArray.Contains(IngredientType.avocado)
+            && ingredientsArray.Contains(IngredientType.basil))
         {
             return true;
         }
-        else if (ingredientsArray.Contains(Ingredients.ginger)
-                 && ingredientsArray.Contains(Ingredients.garlic)
-                 && ingredientsArray.Contains(Ingredients.basil))
+        else if (ingredientsArray.Contains(IngredientType.ginger)
+                 && ingredientsArray.Contains(IngredientType.garlic)
+                 && ingredientsArray.Contains(IngredientType.basil))
         {
             return true;
         }
-        else if (ingredientsArray.Contains(Ingredients.watermelon)
-                 && ingredientsArray.Contains(Ingredients.parsnip)
-                 && ingredientsArray.Contains(Ingredients.ginger))
+        else if (ingredientsArray.Contains(IngredientType.watermelon)
+                 && ingredientsArray.Contains(IngredientType.parsnip)
+                 && ingredientsArray.Contains(IngredientType.ginger))
         {
             return true;
         }
-        else if (ingredientsArray.Contains(Ingredients.watermelon)
-                 && ingredientsArray.Contains(Ingredients.avocado)
-                 && ingredientsArray.Contains(Ingredients.ginger))
+        else if (ingredientsArray.Contains(IngredientType.watermelon)
+                 && ingredientsArray.Contains(IngredientType.avocado)
+                 && ingredientsArray.Contains(IngredientType.ginger))
         {
             return true;
         }
         
         return false;
     }
+
+    public bool isValidRecipe(List<Ingredient> ingredientsArray)
+    {
+        if (!isRecipe(ingredientsArray))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < ingredientsArray.Count; i++)
+        {
+            Ingredient ing = ingredientsArray[i];
+            if (needToCut(ing.type))
+            {
+                if (!ing.isCut)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
+
+[System.Serializable]
+public class Recipe
+{
+    public List<Ingredient> ingredients;
+    public float boilTime;
+    
+    public bool Equals(Recipe other)
+    {
+        return (ingredients.SequenceEqual(other.ingredients));
+    }
+
+    public Recipe(List<Ingredient> ingredients, float boilTime)
+    {
+        this.ingredients = ingredients;
+        this.boilTime = boilTime;
+    }
+    
+    /*
+    public static override bool operator==(Object other)
+    {
+        return (ingredients.SequenceEqual(other.getIngredients()));
+    }
+    */
 }

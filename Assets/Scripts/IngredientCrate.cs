@@ -5,7 +5,7 @@ using UnityEngine;
 public class IngredientCrate : MonoBehaviour
 {
     
-    public RecipeController.Ingredients type;
+    public RecipeController.IngredientType type;
 
     public GameObject ingredientPrefab;
     public Transform spawnPoint;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ingredient : MonoBehaviour
 {
 
-    public RecipeController.Ingredients type;
+    public RecipeController.IngredientType type;
 
     public SpriteRenderer sr;
     
