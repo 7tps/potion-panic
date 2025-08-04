@@ -13,7 +13,8 @@ public class LevelScreenButtonControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        level1Button.onClick.AddListener(loadLevel1);
+        returnButton.onClick.AddListener(returnToMenu);
     }
 
     void loadLevel1()
