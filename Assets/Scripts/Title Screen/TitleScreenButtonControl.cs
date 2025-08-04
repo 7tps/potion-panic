@@ -22,6 +22,9 @@ public class TitleScreenButtonControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        keymapsPanel.SetActive(false);
+        settingsPanel.SetActive(false);
+
         startGameButton.onClick.AddListener(startGame);
         keymapsButton.onClick.AddListener(showKeymaps);
         settingsButton.onClick.AddListener(showSettings);

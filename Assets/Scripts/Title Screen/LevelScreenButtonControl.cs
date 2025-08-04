@@ -10,11 +10,33 @@ public class LevelScreenButtonControl : MonoBehaviour
     public Button level1Button;
     public Button returnButton;
 
+    public Button backButton;
+    public Button playButton;
+
+    public GameObject Menu;
+    public GameObject Recipes;
+
     // Start is called before the first frame update
     void Start()
     {
-        level1Button.onClick.AddListener(loadLevel1);
+        level1Button.onClick.AddListener(showRecipes);
+        playButton.onClick.AddListener(loadLevel1);
+        backButton.onClick.AddListener(closeRecipes);
         returnButton.onClick.AddListener(returnToMenu);
+
+        closeRecipes();
+    }
+
+    void showRecipes()
+    {
+        Menu.SetActive(false);
+        Recipes.SetActive(true);
+    }
+
+    void closeRecipes()
+    {
+        Menu.SetActive(true);
+        Recipes.SetActive(false);
     }
 
     void loadLevel1()
