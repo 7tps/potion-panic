@@ -12,13 +12,24 @@ public class TitleScreenButtonControl : MonoBehaviour
     public Button settingsButton;
     public Button quitGameButton;
 
+    public Button keymap_returnButton;
+
+    public Button settings_returnButton;
+
+    public GameObject keymapsPanel;
+    public GameObject settingsPanel;
+
     // Start is called before the first frame update
     void Start()
     {
         startGameButton.onClick.AddListener(startGame);
         keymapsButton.onClick.AddListener(showKeymaps);
-        settingsButton.onClick.AddListener(settings);
+        settingsButton.onClick.AddListener(showSettings);
         quitGameButton.onClick.AddListener(quitGame);
+
+        keymap_returnButton.onClick.AddListener(closeKeymaps);
+
+        settings_returnButton.onClick.AddListener(closeSettings);
     }
 
     void startGame()
@@ -28,18 +39,33 @@ public class TitleScreenButtonControl : MonoBehaviour
 
     void showKeymaps()
     {
-        // set keymap subpanel to active
+        if (settingsPanel.activeInHierarchy)
+            closeSettings();
+        keymapsPanel.SetActive(true);
     }
 
-    void settings()
+    void closeKeymaps()
     {
-        // set setting subpanel to active
+        keymapsPanel.SetActive(false);
+    }
+
+    void showSettings()
+    {
+        if (keymapsPanel.activeInHierarchy)
+            closeKeymaps();
+        settingsPanel.SetActive(true);
+    }
+
+    void closeSettings()
+    {
+        settingsPanel.SetActive(false);
     }
 
     void quitGame()
     {
         // save the user's stats first
         Application.Quit();
+        Debug.Log("QUIT GAME");
     }
 
     // Update is called once per frame
