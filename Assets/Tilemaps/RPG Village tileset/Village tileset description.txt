@@ -1,0 +1,12 @@
+Thank you for purchasing.
+Village Tileset with autotile support for your games.
+_
+This tileset includes :
+-Character
+-base tile
+-Interior
+-3 Variations of houses
+-Decorations
+
+Tiled  .tsx mockup files also included.
+You can use this tile for commercial use and credit will be appreciated.
