@@ -67,6 +67,27 @@ public class PlayerController : MonoBehaviour
 
     void HandleInteraction()
     {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Counter[] counters = FindObjectsOfType<Counter>();
+            foreach (Counter counter in counters)
+            {
+                if (counter.gridPosition == lookingAtGridBlock && counter.hasIngredient)
+                {
+                    Ingredient ingredient = counter.heldIngredient;
+                    if (ingredient != null && ingredient.needToCut && !ingredient.isCut)
+                    {
+                        ingredient.cutIngredient();
+                        if (ingredient.cutProgress <= 0)
+                        {
+                            ingredient.isCut = true;
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (heldIngredient != null)

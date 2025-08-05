@@ -11,6 +11,8 @@ public class Ingredient : MonoBehaviour
     
     public bool needToCut;
     public bool isCut = false;
+    public float cutTime = 0f;
+    public float cutProgress;
     
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,8 @@ public class Ingredient : MonoBehaviour
     public void Initialize()
     {
         needToCut = RecipeController.instance.needToCut(type);
+        cutTime = RecipeController.instance.GetIngredientCutTime(type);
+        cutProgress = cutTime;
         Sprite sprite = RecipeController.instance.GetIngredientSprite(type);
         if (sprite != null)
         {
@@ -38,11 +42,34 @@ public class Ingredient : MonoBehaviour
     public void InitializeWithType(RecipeController.IngredientType i)
     {
         Debug.Log("Initialized ingredient with type: " + i);
+        type = i;
         needToCut = RecipeController.instance.needToCut(i);
+        cutTime = RecipeController.instance.GetIngredientCutTime(type);
+        cutProgress = cutTime;
         Sprite sprite = RecipeController.instance.GetIngredientSprite(i);
         if (sprite != null)
         {
             sr.sprite = sprite;
+        }
+    }
+    
+    public void RecipeInitialize(RecipeController.IngredientType i)
+    {
+        Debug.Log("Initialized ingredient with type: " + i);
+        type = i;
+        needToCut = RecipeController.instance.needToCut(i);
+        cutTime = RecipeController.instance.GetIngredientCutTime(type);
+        cutProgress = cutTime;
+    }
+
+    public void cutIngredient()
+    {
+        cutProgress -= Time.deltaTime;
+        if (cutProgress <= 0)
+        {
+            cutProgress = 0;
+            isCut = true;
+            return;
         }
     }
 }

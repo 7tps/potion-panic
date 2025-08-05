@@ -23,11 +23,22 @@ public class RecipeController : MonoBehaviour
         public Sprite sprite;
     }
 
+    [System.Serializable]
+    public class IngredientTimePair
+    {
+        public IngredientType type;
+        public float cutTime;
+    }
+
     [SerializeField]
     public IngredientSpritePair[] ingredientSpritePairs;
+    [SerializeField]
+    public IngredientTimePair[] ingredientTimePairs;
     
     private Dictionary<IngredientType, Sprite> ingredientSprites = new Dictionary<IngredientType, Sprite>();
-    public List<Recipe> validRecipes;
+    private Dictionary<IngredientType, float> ingredientCutTime = new Dictionary<IngredientType, float>();
+    [SerializeField]
+    public List<Recipe> validRecipes = new List<Recipe>();
     
     public static RecipeController instance;
 
@@ -41,6 +52,8 @@ public class RecipeController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        InitializeRecipes();
     }
     
     // Start is called before the first frame update
@@ -56,8 +69,13 @@ public class RecipeController : MonoBehaviour
                 }
             }
         }
-        
-        InitializeRecipes();
+        if (ingredientTimePairs != null)
+        {
+            foreach (var pair in ingredientTimePairs)
+            {
+                ingredientCutTime[pair.type] = pair.cutTime;
+            }
+        }
     }
 
     void InitializeRecipes()
@@ -96,7 +114,7 @@ public class RecipeController : MonoBehaviour
     {
         GameObject tempGO = new GameObject("TempIngredient");
         Ingredient ingredient = tempGO.AddComponent<Ingredient>();
-        ingredient.type = type;
+        ingredient.RecipeInitialize(type);
         return ingredient;
     }
 
@@ -171,6 +189,15 @@ public class RecipeController : MonoBehaviour
             return ingredientSprites[type];
         }
         return null;
+    }
+
+    public float GetIngredientCutTime(IngredientType type)
+    {
+        if (ingredientCutTime.ContainsKey(type))
+        {
+            return ingredientCutTime[type];
+        }
+        return 0f;
     }
 }
 
