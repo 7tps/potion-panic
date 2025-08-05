@@ -34,15 +34,19 @@ public class UIController : MonoBehaviour
     {
         if (!initialized)
         {
-            cutBar = Instantiate(cutBarPrefab, position, Quaternion.identity, canvas.transform);
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
+            cutBar = Instantiate(cutBarPrefab, screenPosition, Quaternion.identity, canvas.transform);
             statusBar = cutBar.GetComponentInChildren<Image>();
             totalCutTime = RecipeController.instance.GetIngredientCutTime(type);
             cutProgress = totalCutTime;
             initialized = true;
         }
         cutProgress -= Time.deltaTime;
-        statusBar.fillAmount = cutProgress / totalCutTime;
+        statusBar.fillAmount = (totalCutTime-cutProgress) / totalCutTime;
         if (cutProgress <= 0)
-            Destroy(gameObject);
+        {
+            Destroy(cutBar);
+            initialized = false;
+        }
     }
 }
