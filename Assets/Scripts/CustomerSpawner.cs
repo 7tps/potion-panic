@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CustomerSpawner : MonoBehaviour
@@ -15,7 +16,9 @@ public class CustomerSpawner : MonoBehaviour
     public float minSpawnInterval = 3f;
     public float maxSpawnInterval = 8f;
     public bool autoSpawn = true;
-    
+    [SerializeField]
+    private float nextSpawnTime;
+
     [System.Serializable]
     public class RecipeColorSpritePair
     {
@@ -27,8 +30,7 @@ public class CustomerSpawner : MonoBehaviour
     public RecipeColorSpritePair[] recipeColorSpritePairs;
     
     private Dictionary<Recipe.RecipeColor, Sprite> potionSprites = new Dictionary<Recipe.RecipeColor, Sprite>();
-    private float nextSpawnTime;
-
+    
     public static CustomerSpawner instance;
 
     void Awake()
@@ -57,6 +59,11 @@ public class CustomerSpawner : MonoBehaviour
             }
         }
         
+        if (instantiatedCustomers == null || instantiatedCustomers.Length != customerPositions.Length)
+        {
+            instantiatedCustomers = new Customer[customerPositions.Length];
+        }
+        
         if (autoSpawn)
         {
             SetNextSpawnTime();
@@ -68,8 +75,9 @@ public class CustomerSpawner : MonoBehaviour
     {
         if (autoSpawn && Time.time >= nextSpawnTime)
         {
-            SpawnCustomer();
+            bool spawned = SpawnCustomer();
             SetNextSpawnTime();
+            Debug.Log("Next spawn time set to: " + nextSpawnTime);
         }
     }
     
@@ -78,16 +86,33 @@ public class CustomerSpawner : MonoBehaviour
         nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
     }
     
-    public void SpawnCustomer()
+    public bool SpawnCustomer()
     {
         if (customerPositions.Length == 0 || customerPrefab == null)
         {
             Debug.LogWarning("No customer positions or prefab set!");
-            return;
+            return false;
+        }
+        
+        if (instantiatedCustomers == null || instantiatedCustomers.Length != customerPositions.Length)
+        {
+            Debug.LogWarning("instantiatedCustomers array not properly initialized!");
+            return false;
         }
         
         int index = Random.Range(0, customerPositions.Length);
-        //add check for if customer is already seated at a certain position
+        if (index >= instantiatedCustomers.Length)
+        {
+            Debug.LogWarning("Index out of bounds: " + index + " >= " + instantiatedCustomers.Length);
+            return false;
+        }
+        
+        if (instantiatedCustomers[index] != null)
+        {
+            Debug.Log("Position " + index + " is already occupied!");
+            return false;
+        }
+        
         Transform spawnPosition = customerPositions[index];
         GameObject customerObj = Instantiate(customerPrefab, spawnPosition.position, spawnPosition.rotation);
         Customer customer = customerObj.GetComponent<Customer>();
@@ -96,7 +121,7 @@ public class CustomerSpawner : MonoBehaviour
         if (customer != null)
         {
             Recipe.RecipeColor randomColor = GetRandomRecipeColor();
-            Sprite customerSprite = customerSprites[Random.Range(0, customerPositions.Length)];
+            Sprite customerSprite = customerSprites[Random.Range(0, customerSprites.Length)];
             Sprite potionSprite = GetPotionSprite(randomColor);
             
             customer.Initialize(
@@ -104,7 +129,9 @@ public class CustomerSpawner : MonoBehaviour
                 potionSprite, 
                 Random.Range(10f, 20f)
             );
+            return true;
         }
+        return false;
     }
     
     Recipe.RecipeColor GetRandomRecipeColor()
