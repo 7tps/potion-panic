@@ -46,7 +46,6 @@ public class RecipeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Convert array to dictionary for easy lookup
         if (ingredientSpritePairs != null)
         {
             foreach (var pair in ingredientSpritePairs)
@@ -57,6 +56,48 @@ public class RecipeController : MonoBehaviour
                 }
             }
         }
+        
+        InitializeRecipes();
+    }
+
+    void InitializeRecipes()
+    {
+        validRecipes = new List<Recipe>();
+        
+        List<Ingredient> recipe1Ingredients = new List<Ingredient>();
+        recipe1Ingredients.Add(CreateIngredient(IngredientType.avocado));
+        recipe1Ingredients.Add(CreateIngredient(IngredientType.basil));
+        Recipe recipe1 = new Recipe(recipe1Ingredients, 5.0f);
+        validRecipes.Add(recipe1);
+        
+        List<Ingredient> recipe2Ingredients = new List<Ingredient>();
+        recipe2Ingredients.Add(CreateIngredient(IngredientType.ginger));
+        recipe2Ingredients.Add(CreateIngredient(IngredientType.garlic));
+        recipe2Ingredients.Add(CreateIngredient(IngredientType.basil));
+        Recipe recipe2 = new Recipe(recipe2Ingredients, 8.0f);
+        validRecipes.Add(recipe2);
+        
+        List<Ingredient> recipe3Ingredients = new List<Ingredient>();
+        recipe3Ingredients.Add(CreateIngredient(IngredientType.watermelon));
+        recipe3Ingredients.Add(CreateIngredient(IngredientType.parsnip));
+        recipe3Ingredients.Add(CreateIngredient(IngredientType.ginger));
+        Recipe recipe3 = new Recipe(recipe3Ingredients, 6.0f);
+        validRecipes.Add(recipe3);
+        
+        List<Ingredient> recipe4Ingredients = new List<Ingredient>();
+        recipe4Ingredients.Add(CreateIngredient(IngredientType.watermelon));
+        recipe4Ingredients.Add(CreateIngredient(IngredientType.avocado));
+        recipe4Ingredients.Add(CreateIngredient(IngredientType.ginger));
+        Recipe recipe4 = new Recipe(recipe4Ingredients, 7.0f);
+        validRecipes.Add(recipe4);
+    }
+
+    Ingredient CreateIngredient(IngredientType type)
+    {
+        GameObject tempGO = new GameObject("TempIngredient");
+        Ingredient ingredient = tempGO.AddComponent<Ingredient>();
+        ingredient.type = type;
+        return ingredient;
     }
 
     // Update is called once per frame
@@ -87,16 +128,14 @@ public class RecipeController : MonoBehaviour
         {
             if (recipe.ingredients.Count == inputArray.Count)
             {
-                bool match = true;
                 for (int i = 0; i < inputArray.Count; i++)
                 {
                     if (inputArray[i].type != recipe.ingredients[i].type)
                     {
-                        match = false;
-                        break;
+                        return false;
                     }
                 }
-                if (match) return true;
+                return true;
             }
         }
         
@@ -143,7 +182,19 @@ public class Recipe
     
     public bool Equals(Recipe other)
     {
-        return (ingredients.SequenceEqual(other.ingredients));
+        if (ingredients.Count != other.ingredients.Count)
+        {
+            return false;
+        }
+        for (int i = 0; i < ingredients.Count; i++)
+        {
+            if (ingredients[i].type != other.ingredients[i].type)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public Recipe(List<Ingredient> ingredients, float boilTime)

@@ -24,7 +24,7 @@ public class Ingredient : MonoBehaviour
     {
         
     }
-
+    
     public void Initialize()
     {
         needToCut = RecipeController.instance.needToCut(type);
