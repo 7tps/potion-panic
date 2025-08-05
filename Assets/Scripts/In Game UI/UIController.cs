@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -14,16 +15,40 @@ public class UIController : MonoBehaviour
     private Dictionary<Ingredient, float> cutProgress = new Dictionary<Ingredient, float>();
     private Dictionary<Ingredient, float> totalCutTime = new Dictionary<Ingredient, float>();
 
+
+    public GameObject pauseScreen;
+    public Button quitLevelButton;
+
+    void loadLevelScreen()
+    {
+        SceneManager.LoadScene("Level Selection");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        quitLevelButton.onClick.AddListener(loadLevelScreen);
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!pauseScreen.activeInHierarchy)
+            {
+                Time.timeScale = 0;
+                pauseScreen.SetActive(true);
+            }
+            else
+            {
+                pauseScreen.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
     }
 
     public void setCutProgress(Ingredient ing, Vector3 position)
