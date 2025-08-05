@@ -19,6 +19,10 @@ public class UIController : MonoBehaviour
     public GameObject pauseScreen;
     public Button quitLevelButton;
 
+    public Button pausePlayButton;
+    public GameObject pauseImage;
+    public GameObject playImage;
+
     void loadLevelScreen()
     {
         SceneManager.LoadScene("Level Selection");
@@ -29,7 +33,10 @@ public class UIController : MonoBehaviour
     {
         instance = this;
         quitLevelButton.onClick.AddListener(loadLevelScreen);
+        pausePlayButton.onClick.AddListener(switchSceneStatus);
         pauseScreen.SetActive(false);
+        pauseImage.SetActive(true);
+        playImage.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -42,10 +49,14 @@ public class UIController : MonoBehaviour
             {
                 Time.timeScale = 0;
                 pauseScreen.SetActive(true);
+                playImage.SetActive(true);
+                pauseImage.SetActive(false);
             }
             else
             {
                 pauseScreen.SetActive(false);
+                playImage.SetActive(false);
+                pauseImage.SetActive(true);
                 Time.timeScale = 1;
             }
         }
