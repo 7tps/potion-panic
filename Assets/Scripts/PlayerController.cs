@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     
     private Transform ingredientPosition;
     private Ingredient heldIngredient;
+
+    public GameObject progressBarPrefab;
     
     void Awake()
     {
@@ -75,6 +77,8 @@ public class PlayerController : MonoBehaviour
                 if (counter.gridPosition == lookingAtGridBlock && counter.hasIngredient)
                 {
                     Ingredient ingredient = counter.heldIngredient;
+                    Vector3 progressBarPosition = ingredient.transform.position += Vector3.up;
+                    Instantiate(progressBarPrefab, progressBarPosition, Quaternion.identity);
                     if (ingredient != null && ingredient.needToCut && !ingredient.isCut)
                     {
                         //UI
