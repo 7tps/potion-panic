@@ -6,6 +6,18 @@ using System.Linq;
 public class Pot : MonoBehaviour
 {
 
+    [System.Serializable]
+    public class RecipeColorSpritePair
+    {
+        public Recipe.RecipeColor color;
+        public Sprite sprite;
+    }
+    
+    [SerializeField]
+    public RecipeColorSpritePair[] recipeColorSpritePairs;
+    
+    private Dictionary<Recipe.RecipeColor, Sprite> recipeSprites = new Dictionary<Recipe.RecipeColor, Sprite>();
+    
     public List<Ingredient> contents;
 
     public Vector2Int[] gridPositions;
@@ -16,22 +28,22 @@ public class Pot : MonoBehaviour
     public float boilProgress;
     public float boilTime;
 
-    public class RecipeColorSpritePair
-    {
-        public Recipe.RecipeColor color;
-        public Sprite sprite;
-    }
-    
-    [SerializeField]
-    public RecipeColorSpritePair[] ingredientTimePairs;
-    
-    private Dictionary<Recipe.RecipeColor, Sprite> recipeSprites = new Dictionary<Recipe.RecipeColor, Sprite>();
-
     
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        
+        if (recipeColorSpritePairs != null)
+        {
+            foreach (var pair in recipeColorSpritePairs)
+            {
+                if (pair.sprite != null)
+                {
+                    recipeSprites[pair.color] = pair.sprite;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
