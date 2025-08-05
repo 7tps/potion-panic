@@ -36,7 +36,8 @@ public class UIController : MonoBehaviour
         {
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
             cutBar = Instantiate(cutBarPrefab, screenPosition, Quaternion.identity, canvas.transform);
-            statusBar = cutBar.GetComponentInChildren<Image>();
+            Transform statusTransform = cutBar.transform.Find("Status");
+            statusBar = statusTransform.GetComponent<Image>();
             totalCutTime = RecipeController.instance.GetIngredientCutTime(type);
             cutProgress = totalCutTime;
             initialized = true;
