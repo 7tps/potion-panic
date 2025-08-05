@@ -101,6 +101,7 @@ public class RecipeController : MonoBehaviour
         recipe1.ingredientTypes.Add(IngredientType.avocado);
         recipe1.ingredientTypes.Add(IngredientType.basil);
         recipe1.boilTime = 5.0f;
+        recipe1.color = Recipe.RecipeColor.green;
         validRecipes.Add(recipe1);
         
         Recipe recipe2 = new Recipe();
@@ -109,6 +110,7 @@ public class RecipeController : MonoBehaviour
         recipe2.ingredientTypes.Add(IngredientType.garlic);
         recipe2.ingredientTypes.Add(IngredientType.basil);
         recipe2.boilTime = 8.0f;
+        recipe1.color = Recipe.RecipeColor.orange;
         validRecipes.Add(recipe2);
         
         Recipe recipe3 = new Recipe();
@@ -117,6 +119,7 @@ public class RecipeController : MonoBehaviour
         recipe3.ingredientTypes.Add(IngredientType.parsnip);
         recipe3.ingredientTypes.Add(IngredientType.ginger);
         recipe3.boilTime = 6.0f;
+        recipe1.color = Recipe.RecipeColor.olive;
         validRecipes.Add(recipe3);
         
         Recipe recipe4 = new Recipe();
@@ -125,6 +128,7 @@ public class RecipeController : MonoBehaviour
         recipe4.ingredientTypes.Add(IngredientType.avocado);
         recipe4.ingredientTypes.Add(IngredientType.ginger);
         recipe4.boilTime = 7.0f;
+        recipe1.color = Recipe.RecipeColor.red;
         validRecipes.Add(recipe4);
     }
 
@@ -196,6 +200,27 @@ public class RecipeController : MonoBehaviour
         Debug.Log("is valid recipe");
         return true;
     }
+
+    public Recipe GetRecipe(List<Ingredient> inputArray)
+    {
+        foreach (Recipe recipe in validRecipes)
+        {
+            if (recipe.ingredientTypes.Count == inputArray.Count)
+            {
+                for (int i = 0; i < inputArray.Count; i++)
+                {
+                    if (inputArray[i].type != recipe.ingredientTypes[i])
+                    {
+                        Debug.Log("Content ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
+                        break;
+                    }
+                }
+                return recipe;
+            }
+        }
+        Debug.Log("Invalid recipe.");
+        return null;
+    }
     
     public float GetBoilTime(List<Ingredient> ingredientsArray)
     {
@@ -253,8 +278,28 @@ public class RecipeController : MonoBehaviour
 [System.Serializable]
 public class Recipe
 {
+
+    public enum RecipeColor
+    {
+        red,
+        brown,
+        orange,
+        green, 
+        olive,
+        gray,
+        darkblue,
+        teal,
+        blue,
+        purple,
+        pink,
+        darkpurple,
+        black,
+        white
+    }
+    
     public List<RecipeController.IngredientType> ingredientTypes;
     public float boilTime;
+    public RecipeColor color;
     
     public bool Equals(Recipe other)
     {
@@ -278,9 +323,10 @@ public class Recipe
         ingredientTypes = new List<RecipeController.IngredientType>();
     }
     
-    public Recipe(List<RecipeController.IngredientType> types, float boilTime)
+    public Recipe(List<RecipeController.IngredientType> types, float boilTime, RecipeColor color)
     {
         this.ingredientTypes = types;
         this.boilTime = boilTime;
+        this.color = color;
     }
 }

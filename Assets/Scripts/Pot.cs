@@ -10,14 +10,28 @@ public class Pot : MonoBehaviour
 
     public Vector2Int[] gridPositions;
 
+    public SpriteRenderer sr;
+    
     public bool isBoiling = false;
     public float boilProgress;
     public float boilTime;
+
+    public class RecipeColorSpritePair
+    {
+        public Recipe.RecipeColor color;
+        public Sprite sprite;
+    }
+    
+    [SerializeField]
+    public RecipeColorSpritePair[] ingredientTimePairs;
+    
+    private Dictionary<Recipe.RecipeColor, Sprite> recipeSprites = new Dictionary<Recipe.RecipeColor, Sprite>();
+
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -76,9 +90,31 @@ public class Pot : MonoBehaviour
 
     public void EndBoiling()
     {
+        Recipe r = RecipeController.instance.GetRecipe(contents);
+        if (r == null)
+        {
+            Debug.Log("Recipe not found.");
+            return;
+        }
+        Sprite s = GetRecipeSprite(r.color);
+        if (s == null)
+        {
+            Debug.Log("No recipe sprite found...");
+            return;
+        }
+        sr.sprite = s;
         contents.Clear();
     }
 
+    public Sprite GetRecipeSprite(Recipe.RecipeColor type)
+    {
+        if (recipeSprites.ContainsKey(type))
+        {
+            return recipeSprites[type];
+        }
+        return null;
+    }
+    
     public bool IsAtGridPosition(Vector2Int pos)
     {
         for (int i = 0; i < gridPositions.Length; i++)
