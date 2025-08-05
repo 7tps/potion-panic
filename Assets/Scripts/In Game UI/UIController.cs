@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     public static UIController instance;
 
+    public GameObject canvas;
+
     public GameObject cutBarPrefab;
-    public GameObject cutBar;
+    private GameObject cutBar;
+
+    public float cutProgress;
+    public float totalCutTime;
+    private Image statusBar;
 
     public bool initialized = false;
 
@@ -23,13 +30,19 @@ public class UIController : MonoBehaviour
         
     }
 
-    public void setCutProgress(RecipeController.IngredientType type, Transform position)
+    public void setCutProgress(RecipeController.IngredientType type, Vector3 position)
     {
         if (!initialized)
         {
-            cutBar = Instantiate(cutBarPrefab, position);
+            cutBar = Instantiate(cutBarPrefab, position, Quaternion.identity, canvas.transform);
+            statusBar = cutBar.GetComponentInChildren<Image>();
+            totalCutTime = RecipeController.instance.GetIngredientCutTime(type);
+            cutProgress = totalCutTime;
             initialized = true;
         }
-
+        cutProgress -= Time.deltaTime;
+        statusBar.fillAmount = cutProgress / totalCutTime;
+        if (cutProgress <= 0)
+            Destroy(gameObject);
     }
 }

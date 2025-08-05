@@ -77,12 +77,12 @@ public class PlayerController : MonoBehaviour
                 if (counter.gridPosition == lookingAtGridBlock && counter.hasIngredient)
                 {
                     Ingredient ingredient = counter.heldIngredient;
-                    Vector3 progressBarPosition = ingredient.transform.position += Vector3.up;
-                    Instantiate(progressBarPrefab, progressBarPosition, Quaternion.identity);
+                    Vector3 progressBarPosition = ingredient.transform.position + Vector3.up;
+                    //Instantiate(progressBarPrefab, progressBarPosition, Quaternion.identity);
                     if (ingredient != null && ingredient.needToCut && !ingredient.isCut)
                     {
                         //UI
-                        UIController.instance.setCutProgress(ingredient.type, ingredientPosition);
+                        UIController.instance.setCutProgress(ingredient.type, progressBarPosition);
                         //UI
                         ingredient.cutIngredient();
                         if (ingredient.cutProgress <= 0)
