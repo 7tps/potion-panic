@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
                     if (ingredient != null && ingredient.needToCut && !ingredient.isCut)
                     {
                         //UI
-                        UIController.instance.setCutProgress(ingredient.type, progressBarPosition);
+                        UIController.instance.setCutProgress(ingredient, progressBarPosition);
                         //UI
                         ingredient.cutIngredient();
                         if (ingredient.cutProgress <= 0)

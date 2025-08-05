@@ -10,9 +10,9 @@ public class UIController : MonoBehaviour
     public GameObject canvas;
 
     public GameObject cutBarPrefab;
-    private Dictionary<RecipeController.IngredientType, ProgressBar> cutBars = new Dictionary<RecipeController.IngredientType, ProgressBar>();
-    private Dictionary<RecipeController.IngredientType, float> cutProgress = new Dictionary<RecipeController.IngredientType, float>();
-    private Dictionary<RecipeController.IngredientType, float> totalCutTime = new Dictionary<RecipeController.IngredientType, float>();
+    private Dictionary<Ingredient, ProgressBar> cutBars = new Dictionary<Ingredient, ProgressBar>();
+    private Dictionary<Ingredient, float> cutProgress = new Dictionary<Ingredient, float>();
+    private Dictionary<Ingredient, float> totalCutTime = new Dictionary<Ingredient, float>();
 
     // Start is called before the first frame update
     void Start()
@@ -26,28 +26,30 @@ public class UIController : MonoBehaviour
         
     }
 
-    public void setCutProgress(RecipeController.IngredientType type, Vector3 position)
+    public void setCutProgress(Ingredient ing, Vector3 position)
     {
-        if (!cutBars.ContainsKey(type))
+        RecipeController.IngredientType type = ing.type;
+        
+        if (!cutBars.ContainsKey(ing))
         {
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
             GameObject cutBarObj = Instantiate(cutBarPrefab, screenPosition, Quaternion.identity, canvas.transform);
             ProgressBar progressBar = cutBarObj.GetComponent<ProgressBar>();
-            cutBars[type] = progressBar;
-            totalCutTime[type] = RecipeController.instance.GetIngredientCutTime(type);
-            cutProgress[type] = totalCutTime[type];
+            cutBars[ing] = progressBar;
+            totalCutTime[ing] = RecipeController.instance.GetIngredientCutTime(type);
+            cutProgress[ing] = totalCutTime[ing];
         }
         
-        cutProgress[type] -= Time.deltaTime;
-        float progress = (totalCutTime[type] - cutProgress[type]) / totalCutTime[type];
-        cutBars[type].UpdateProgress(progress);
+        cutProgress[ing] -= Time.deltaTime;
+        float progress = (totalCutTime[ing] - cutProgress[ing]) / totalCutTime[ing];
+        cutBars[ing].UpdateProgress(progress);
         
-        if (cutProgress[type] <= 0)
+        if (cutProgress[ing] <= 0)
         {
-            Destroy(cutBars[type].gameObject);
-            cutBars.Remove(type);
-            cutProgress.Remove(type);
-            totalCutTime.Remove(type);
+            Destroy(cutBars[ing].gameObject);
+            cutBars.Remove(ing);
+            cutProgress.Remove(ing);
+            totalCutTime.Remove(ing);
         }
     }
 }
