@@ -132,6 +132,29 @@ public class RecipeController : MonoBehaviour
         validRecipes.Add(recipe4);
     }
 
+    public Recipe GetRecipeByColor(Recipe.RecipeColor color)
+    {
+        switch (color)
+        {
+            case Recipe.RecipeColor.green:
+                return validRecipes[0];
+            case Recipe.RecipeColor.orange:
+                return validRecipes[1];
+            case Recipe.RecipeColor.olive:
+                return validRecipes[2];
+            case Recipe.RecipeColor.red:
+                return validRecipes[3];
+            default:
+                return null;
+        }
+    }
+
+    public Recipe GetRandomRecipe()
+    {
+        int rand = Random.Range(0, validRecipes.Count);
+        return validRecipes[rand];
+    }
+
     // Update is called once per frame
     void Update()
     {
