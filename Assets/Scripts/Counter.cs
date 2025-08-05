@@ -5,6 +5,8 @@ using UnityEngine;
 public class Counter : MonoBehaviour
 {
     public Vector2Int gridPosition;
+
+    public bool isBottom;
     public bool hasIngredient = false;
     public Ingredient heldIngredient = null;
     
@@ -14,6 +16,15 @@ public class Counter : MonoBehaviour
             Mathf.FloorToInt(transform.position.x + 0.5f),
             Mathf.FloorToInt(transform.position.y + 1.5f)
         );
+
+        if (isBottom)
+        {
+            gridPosition = new Vector2Int(
+                Mathf.FloorToInt(transform.position.x + 0.5f),
+                -2
+            );
+        }
+
     }
 
     public bool PlaceIngredient(Ingredient ingredient)
