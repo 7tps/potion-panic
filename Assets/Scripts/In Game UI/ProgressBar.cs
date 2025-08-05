@@ -20,4 +20,9 @@ public class ProgressBar : MonoBehaviour
     {
         
     }
+
+    public void UpdateProgress(float progress)
+    {
+        progressBar.fillAmount = Mathf.Clamp01(progress);
+    }
 }
