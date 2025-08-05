@@ -106,27 +106,27 @@ public class RecipeController : MonoBehaviour
         
         Recipe recipe2 = new Recipe();
         recipe2.ingredientTypes = new List<IngredientType>();
-        recipe2.ingredientTypes.Add(IngredientType.ginger);
-        recipe2.ingredientTypes.Add(IngredientType.garlic);
         recipe2.ingredientTypes.Add(IngredientType.basil);
+        recipe2.ingredientTypes.Add(IngredientType.garlic);
+        recipe2.ingredientTypes.Add(IngredientType.ginger);
         recipe2.boilTime = 8.0f;
         recipe1.color = Recipe.RecipeColor.orange;
         validRecipes.Add(recipe2);
         
         Recipe recipe3 = new Recipe();
         recipe3.ingredientTypes = new List<IngredientType>();
-        recipe3.ingredientTypes.Add(IngredientType.watermelon);
-        recipe3.ingredientTypes.Add(IngredientType.parsnip);
         recipe3.ingredientTypes.Add(IngredientType.ginger);
+        recipe3.ingredientTypes.Add(IngredientType.parsnip);
+        recipe3.ingredientTypes.Add(IngredientType.watermelon);
         recipe3.boilTime = 6.0f;
         recipe1.color = Recipe.RecipeColor.olive;
         validRecipes.Add(recipe3);
         
         Recipe recipe4 = new Recipe();
         recipe4.ingredientTypes = new List<IngredientType>();
-        recipe4.ingredientTypes.Add(IngredientType.watermelon);
         recipe4.ingredientTypes.Add(IngredientType.avocado);
         recipe4.ingredientTypes.Add(IngredientType.ginger);
+        recipe4.ingredientTypes.Add(IngredientType.watermelon);
         recipe4.boilTime = 7.0f;
         recipe1.color = Recipe.RecipeColor.red;
         validRecipes.Add(recipe4);

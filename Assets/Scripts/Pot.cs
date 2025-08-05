@@ -96,13 +96,21 @@ public class Pot : MonoBehaviour
         if (boilProgress <= 0)
         {
             isBoiling = false;
-            EndBoiling();
+            List<Ingredient> recipeCheck = new List<Ingredient>();
+            for (int i = 0; i < contents.Count; i++)
+            {
+                recipeCheck.Add(contents[i]);
+            }
+            contents.Clear();
+            EndBoiling(recipeCheck);
         }
     }
 
-    public void EndBoiling()
+    public void EndBoiling(List<Ingredient> recipeCheck)
     {
-        Recipe r = RecipeController.instance.GetRecipe(contents);
+        boilTime = 0;
+        boilProgress = 0;
+        Recipe r = RecipeController.instance.GetRecipe(recipeCheck);
         if (r == null)
         {
             Debug.Log("Recipe not found.");
@@ -115,7 +123,6 @@ public class Pot : MonoBehaviour
             return;
         }
         sr.sprite = s;
-        contents.Clear();
     }
 
     public Sprite GetRecipeSprite(Recipe.RecipeColor type)
