@@ -165,11 +165,11 @@ public class RecipeController : MonoBehaviour
                 {
                     if (inputArray[i].type != recipe.ingredientTypes[i])
                     {
-                        Debug.Log("Content ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
+                        //Debug.Log("Content ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
                         return false;
                     }
                 }
-                Debug.Log("is recipe");
+                //Debug.Log("is recipe");
                 return true;
             }
         }
@@ -191,13 +191,13 @@ public class RecipeController : MonoBehaviour
             {
                 if (!ing.isCut)
                 {
-                    Debug.Log("Ingredient " + ing.type + " is not cut");
+                    //Debug.Log("Ingredient " + ing.type + " is not cut");
                     return false;
                 }
             }
         }
 
-        Debug.Log("is valid recipe");
+        //Debug.Log("is valid recipe");
         return true;
     }
 
