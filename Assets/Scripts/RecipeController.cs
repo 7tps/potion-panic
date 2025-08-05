@@ -33,9 +33,12 @@ public class RecipeController : MonoBehaviour
     [SerializeField]
     public IngredientSpritePair[] ingredientSpritePairs;
     [SerializeField]
+    public IngredientSpritePair[] cutIngredientSpritePairs;
+    [SerializeField]
     public IngredientTimePair[] ingredientTimePairs;
     
     private Dictionary<IngredientType, Sprite> ingredientSprites = new Dictionary<IngredientType, Sprite>();
+    private Dictionary<IngredientType, Sprite> cutIngredientSprites = new Dictionary<IngredientType, Sprite>();
     private Dictionary<IngredientType, float> ingredientCutTime = new Dictionary<IngredientType, float>();
     [SerializeField]
     public List<Recipe> validRecipes = new List<Recipe>();
@@ -66,6 +69,16 @@ public class RecipeController : MonoBehaviour
                 if (pair.sprite != null)
                 {
                     ingredientSprites[pair.type] = pair.sprite;
+                }
+            }
+        }
+        if (cutIngredientSpritePairs != null)
+        {
+            foreach (var pair in cutIngredientSpritePairs)
+            {
+                if (pair.sprite != null)
+                {
+                    cutIngredientSprites[pair.type] = pair.sprite;
                 }
             }
         }
@@ -185,6 +198,15 @@ public class RecipeController : MonoBehaviour
     public Sprite GetIngredientSprite(IngredientType type)
     {
         if (ingredientSprites.ContainsKey(type))
+        {
+            return ingredientSprites[type];
+        }
+        return null;
+    }
+    
+    public Sprite GetCutIngredientSprite(IngredientType type)
+    {
+        if (cutIngredientSprites.ContainsKey(type))
         {
             return ingredientSprites[type];
         }
