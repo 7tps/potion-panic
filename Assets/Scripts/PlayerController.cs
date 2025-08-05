@@ -92,6 +92,20 @@ public class PlayerController : MonoBehaviour
         {
             if (heldIngredient != null)
             {
+                Pot[] pots = FindObjectsOfType<Pot>();
+                foreach (Pot pot in pots)
+                {
+                    if (pot.IsAtGridPosition(lookingAtGridBlock))
+                    {
+                        pot.AddIngredient(heldIngredient);
+                        heldIngredient = null;
+                        return;
+                    }
+                }
+            }
+            
+            if (heldIngredient != null)
+            {
                 Counter[] counters = FindObjectsOfType<Counter>();
                 foreach (Counter counter in counters)
                 {
