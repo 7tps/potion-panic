@@ -96,40 +96,36 @@ public class RecipeController : MonoBehaviour
     {
         validRecipes = new List<Recipe>();
         
-        List<Ingredient> recipe1Ingredients = new List<Ingredient>();
-        recipe1Ingredients.Add(CreateIngredient(IngredientType.avocado));
-        recipe1Ingredients.Add(CreateIngredient(IngredientType.basil));
-        Recipe recipe1 = new Recipe(recipe1Ingredients, 5.0f);
+        Recipe recipe1 = new Recipe();
+        recipe1.ingredientTypes = new List<IngredientType>();
+        recipe1.ingredientTypes.Add(IngredientType.avocado);
+        recipe1.ingredientTypes.Add(IngredientType.basil);
+        recipe1.boilTime = 5.0f;
         validRecipes.Add(recipe1);
         
-        List<Ingredient> recipe2Ingredients = new List<Ingredient>();
-        recipe2Ingredients.Add(CreateIngredient(IngredientType.ginger));
-        recipe2Ingredients.Add(CreateIngredient(IngredientType.garlic));
-        recipe2Ingredients.Add(CreateIngredient(IngredientType.basil));
-        Recipe recipe2 = new Recipe(recipe2Ingredients, 8.0f);
+        Recipe recipe2 = new Recipe();
+        recipe2.ingredientTypes = new List<IngredientType>();
+        recipe2.ingredientTypes.Add(IngredientType.ginger);
+        recipe2.ingredientTypes.Add(IngredientType.garlic);
+        recipe2.ingredientTypes.Add(IngredientType.basil);
+        recipe2.boilTime = 8.0f;
         validRecipes.Add(recipe2);
         
-        List<Ingredient> recipe3Ingredients = new List<Ingredient>();
-        recipe3Ingredients.Add(CreateIngredient(IngredientType.watermelon));
-        recipe3Ingredients.Add(CreateIngredient(IngredientType.parsnip));
-        recipe3Ingredients.Add(CreateIngredient(IngredientType.ginger));
-        Recipe recipe3 = new Recipe(recipe3Ingredients, 6.0f);
+        Recipe recipe3 = new Recipe();
+        recipe3.ingredientTypes = new List<IngredientType>();
+        recipe3.ingredientTypes.Add(IngredientType.watermelon);
+        recipe3.ingredientTypes.Add(IngredientType.parsnip);
+        recipe3.ingredientTypes.Add(IngredientType.ginger);
+        recipe3.boilTime = 6.0f;
         validRecipes.Add(recipe3);
         
-        List<Ingredient> recipe4Ingredients = new List<Ingredient>();
-        recipe4Ingredients.Add(CreateIngredient(IngredientType.watermelon));
-        recipe4Ingredients.Add(CreateIngredient(IngredientType.avocado));
-        recipe4Ingredients.Add(CreateIngredient(IngredientType.ginger));
-        Recipe recipe4 = new Recipe(recipe4Ingredients, 7.0f);
+        Recipe recipe4 = new Recipe();
+        recipe4.ingredientTypes = new List<IngredientType>();
+        recipe4.ingredientTypes.Add(IngredientType.watermelon);
+        recipe4.ingredientTypes.Add(IngredientType.avocado);
+        recipe4.ingredientTypes.Add(IngredientType.ginger);
+        recipe4.boilTime = 7.0f;
         validRecipes.Add(recipe4);
-    }
-
-    Ingredient CreateIngredient(IngredientType type)
-    {
-        GameObject tempGO = new GameObject("TempIngredient");
-        Ingredient ingredient = tempGO.AddComponent<Ingredient>();
-        ingredient.RecipeInitialize(type);
-        return ingredient;
     }
 
     // Update is called once per frame
@@ -158,11 +154,11 @@ public class RecipeController : MonoBehaviour
         // Check against valid recipes
         foreach (Recipe recipe in validRecipes)
         {
-            if (recipe.ingredients.Count == inputArray.Count)
+            if (recipe.ingredientTypes.Count == inputArray.Count)
             {
                 for (int i = 0; i < inputArray.Count; i++)
                 {
-                    if (inputArray[i].type != recipe.ingredients[i].type)
+                    if (inputArray[i].type != recipe.ingredientTypes[i])
                     {
                         return false;
                     }
@@ -194,6 +190,31 @@ public class RecipeController : MonoBehaviour
         }
 
         return true;
+    }
+    
+    public float GetBoilTime(List<Ingredient> ingredientsArray)
+    {
+        if (!isValidRecipe(ingredientsArray))
+        {
+            return -1;
+        }
+
+        foreach (Recipe recipe in validRecipes)
+        {
+            if (recipe.ingredientTypes.Count == ingredientsArray.Count)
+            {
+                for (int i = 0; i < ingredientsArray.Count; i++)
+                {
+                    if (ingredientsArray[i].type != recipe.ingredientTypes[i])
+                    {
+                        return -1;
+                    }
+                }
+                return recipe.boilTime;
+            }
+        }
+
+        return -1;
     }
 
     public Sprite GetIngredientSprite(IngredientType type)
@@ -227,18 +248,18 @@ public class RecipeController : MonoBehaviour
 [System.Serializable]
 public class Recipe
 {
-    public List<Ingredient> ingredients;
+    public List<RecipeController.IngredientType> ingredientTypes;
     public float boilTime;
     
     public bool Equals(Recipe other)
     {
-        if (ingredients.Count != other.ingredients.Count)
+        if (ingredientTypes.Count != other.ingredientTypes.Count)
         {
             return false;
         }
-        for (int i = 0; i < ingredients.Count; i++)
+        for (int i = 0; i < ingredientTypes.Count; i++)
         {
-            if (ingredients[i].type != other.ingredients[i].type)
+            if (ingredientTypes[i] != other.ingredientTypes[i])
             {
                 return false;
             }
@@ -247,16 +268,14 @@ public class Recipe
         return true;
     }
 
-    public Recipe(List<Ingredient> ingredients, float boilTime)
+    public Recipe()
     {
-        this.ingredients = ingredients;
-        this.boilTime = boilTime;
+        ingredientTypes = new List<RecipeController.IngredientType>();
     }
     
-    /*
-    public static override bool operator==(Object other)
+    public Recipe(List<RecipeController.IngredientType> types, float boilTime)
     {
-        return (ingredients.SequenceEqual(other.getIngredients()));
+        this.ingredientTypes = types;
+        this.boilTime = boilTime;
     }
-    */
 }

@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleInteraction()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.E))
         {
             Counter[] counters = FindObjectsOfType<Counter>();
             foreach (Counter counter in counters)

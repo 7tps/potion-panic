@@ -6,6 +6,9 @@ public class Pot : MonoBehaviour
 {
 
     public List<Ingredient> contents;
+
+    public float boilProgress;
+    public float boilTime;
     
     // Start is called before the first frame update
     void Start()
@@ -30,7 +33,12 @@ public class Pot : MonoBehaviour
     
     public void StartBoiling()
     {
-        
+        boilTime = RecipeController.instance.GetBoilTime(contents);
+        boilProgress = boilTime;
+        while (boilProgress >= 0)
+        {
+            boilProgress -= Time.deltaTime;
+        }
     }
 
     

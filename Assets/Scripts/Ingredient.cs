@@ -30,8 +30,11 @@ public class Ingredient : MonoBehaviour
     public void Initialize()
     {
         needToCut = RecipeController.instance.needToCut(type);
-        cutTime = RecipeController.instance.GetIngredientCutTime(type);
-        cutProgress = cutTime;
+        if (needToCut)
+        {
+            cutTime = RecipeController.instance.GetIngredientCutTime(type);
+            cutProgress = cutTime;
+        }
         Sprite sprite = RecipeController.instance.GetIngredientSprite(type);
         if (sprite != null)
         {
@@ -44,8 +47,11 @@ public class Ingredient : MonoBehaviour
         Debug.Log("Initialized ingredient with type: " + i);
         type = i;
         needToCut = RecipeController.instance.needToCut(i);
-        cutTime = RecipeController.instance.GetIngredientCutTime(type);
-        cutProgress = cutTime;
+        if (needToCut)
+        {
+            cutTime = RecipeController.instance.GetIngredientCutTime(i);
+            cutProgress = cutTime;
+        }
         Sprite sprite = RecipeController.instance.GetIngredientSprite(i);
         if (sprite != null)
         {
@@ -58,7 +64,11 @@ public class Ingredient : MonoBehaviour
         Debug.Log("Initialized ingredient with type: " + i);
         type = i;
         needToCut = RecipeController.instance.needToCut(i);
-        cutTime = RecipeController.instance.GetIngredientCutTime(type);
+        if (needToCut)
+        {
+            cutTime = RecipeController.instance.GetIngredientCutTime(i);
+            cutProgress = cutTime;
+        }
         cutProgress = cutTime;
     }
 
