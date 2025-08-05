@@ -69,7 +69,7 @@ public class Ingredient : MonoBehaviour
         {
             cutProgress = 0;
             isCut = true;
-            Sprite s =  RecipeController.instance.GetIngredientSprite(type);
+            Sprite s =  RecipeController.instance.GetCutIngredientSprite(type);
             if (s != null)
             {
                 sr.sprite = s;

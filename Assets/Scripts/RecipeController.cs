@@ -208,7 +208,7 @@ public class RecipeController : MonoBehaviour
     {
         if (cutIngredientSprites.ContainsKey(type))
         {
-            return ingredientSprites[type];
+            return cutIngredientSprites[type];
         }
         return null;
     }
