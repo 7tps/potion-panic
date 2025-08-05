@@ -16,7 +16,17 @@ public class RecipeController : MonoBehaviour
         watermelon,
     }
 
-    public Sprite[] ingredientSprites;
+    [System.Serializable]
+    public class IngredientSpritePair
+    {
+        public IngredientType type;
+        public Sprite sprite;
+    }
+
+    [SerializeField]
+    public IngredientSpritePair[] ingredientSpritePairs;
+    
+    private Dictionary<IngredientType, Sprite> ingredientSprites = new Dictionary<IngredientType, Sprite>();
     public List<Recipe> validRecipes;
     
     public static RecipeController instance;
@@ -36,7 +46,17 @@ public class RecipeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Convert array to dictionary for easy lookup
+        if (ingredientSpritePairs != null)
+        {
+            foreach (var pair in ingredientSpritePairs)
+            {
+                if (pair.sprite != null)
+                {
+                    ingredientSprites[pair.type] = pair.sprite;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -62,35 +82,22 @@ public class RecipeController : MonoBehaviour
 
     public bool isRecipe(List<Ingredient> inputArray)
     {
-        
-        IngredientType[] ingredientsArray = new IngredientType[inputArray.Count];
-        for (int i = 0; i < inputArray.Count; i++)
+        // Check against valid recipes
+        foreach (Recipe recipe in validRecipes)
         {
-            ingredientsArray[i] = inputArray[i].type;
-        }
-        
-        if (ingredientsArray.Contains(IngredientType.avocado)
-            && ingredientsArray.Contains(IngredientType.basil))
-        {
-            return true;
-        }
-        else if (ingredientsArray.Contains(IngredientType.ginger)
-                 && ingredientsArray.Contains(IngredientType.garlic)
-                 && ingredientsArray.Contains(IngredientType.basil))
-        {
-            return true;
-        }
-        else if (ingredientsArray.Contains(IngredientType.watermelon)
-                 && ingredientsArray.Contains(IngredientType.parsnip)
-                 && ingredientsArray.Contains(IngredientType.ginger))
-        {
-            return true;
-        }
-        else if (ingredientsArray.Contains(IngredientType.watermelon)
-                 && ingredientsArray.Contains(IngredientType.avocado)
-                 && ingredientsArray.Contains(IngredientType.ginger))
-        {
-            return true;
+            if (recipe.ingredients.Count == inputArray.Count)
+            {
+                bool match = true;
+                for (int i = 0; i < inputArray.Count; i++)
+                {
+                    if (inputArray[i].type != recipe.ingredients[i].type)
+                    {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match) return true;
+            }
         }
         
         return false;
@@ -116,6 +123,15 @@ public class RecipeController : MonoBehaviour
         }
 
         return true;
+    }
+
+    public Sprite GetIngredientSprite(IngredientType type)
+    {
+        if (ingredientSprites.ContainsKey(type))
+        {
+            return ingredientSprites[type];
+        }
+        return null;
     }
 }
 

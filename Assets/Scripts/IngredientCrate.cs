@@ -6,6 +6,8 @@ public class IngredientCrate : MonoBehaviour
 {
     
     public RecipeController.IngredientType type;
+    public Vector2Int gridPosition;
+    public bool hasIngredient = false;
 
     public GameObject ingredientPrefab;
     public Transform spawnPoint;
@@ -17,19 +19,33 @@ public class IngredientCrate : MonoBehaviour
         {
             spawnPoint = transform;
         }
+        
+        gridPosition = new Vector2Int(
+            Mathf.FloorToInt(transform.position.x + 0.5f),
+            Mathf.FloorToInt(transform.position.y + 1.5f)
+        );
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            spawnIngredient();
-        }
+        
     }
 
     public void spawnIngredient()
     {
-        Instantiate(ingredientPrefab, spawnPoint.position, Quaternion.identity, this.transform);
+        if (!hasIngredient)
+        {
+            GameObject g = Instantiate(ingredientPrefab, spawnPoint.position, Quaternion.identity);
+            Ingredient i = g.GetComponent<Ingredient>();
+            i.InitializeWithType(type);
+            g.transform.localScale = Vector3.one;
+            hasIngredient = true;
+        }
+    }
+
+    public void SetHasIngredient(bool has)
+    {
+        hasIngredient = has;
     }
 }
