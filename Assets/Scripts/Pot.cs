@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class Pot : MonoBehaviour
@@ -27,6 +28,9 @@ public class Pot : MonoBehaviour
     public bool isBoiling = false;
     public float boilProgress;
     public float boilTime;
+
+    public Image progressStatus;
+    public GameObject progressBar;
 
     
     // Start is called before the first frame update
@@ -88,11 +92,14 @@ public class Pot : MonoBehaviour
         isBoiling = true;
         Debug.Log("boilTime is " + boilTime);
         Debug.Log("boilProgress is " + boilProgress);
+        progressBar.SetActive(true);
+        progressStatus.fillAmount = 0;
     }
     
     public void UpdateBoiling()
     {
         boilProgress -= Time.deltaTime;
+        progressStatus.fillAmount = 1 - boilProgress / boilTime;
         if (boilProgress <= 0)
         {
             isBoiling = false;
@@ -102,6 +109,7 @@ public class Pot : MonoBehaviour
                 recipeCheck.Add(contents[i]);
             }
             contents.Clear();
+            progressBar.SetActive(false);
             EndBoiling(recipeCheck);
         }
     }
