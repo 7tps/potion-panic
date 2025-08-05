@@ -23,20 +23,35 @@ public class UIController : MonoBehaviour
     public GameObject pauseImage;
     public GameObject playImage;
 
+    public GameObject failScreen;
+    public Button backToMenuButton;
+    public Button restartLevelButton;
+
     void loadLevelScreen()
     {
         SceneManager.LoadScene("Level Selection");
+    }
+
+    void restartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+
         quitLevelButton.onClick.AddListener(loadLevelScreen);
         pausePlayButton.onClick.AddListener(switchSceneStatus);
+        backToMenuButton.onClick.AddListener(loadLevelScreen);
+        restartLevelButton.onClick.AddListener(restartLevel);
+
+        failScreen.SetActive(false);
         pauseScreen.SetActive(false);
         pauseImage.SetActive(true);
         playImage.SetActive(false);
+
         Time.timeScale = 1;
     }
 

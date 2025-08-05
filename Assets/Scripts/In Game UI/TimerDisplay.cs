@@ -32,7 +32,8 @@ public class TimerDisplay : MonoBehaviour
         }
         else
         {
-            timerText.text = "GAMEOVER";
+            Time.timeScale = 0;
+            UIController.instance.failScreen.SetActive(true);
         }
     }
 
