@@ -40,25 +40,30 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    void switchSceneStatus()
+    {
+        if (!pauseScreen.activeInHierarchy)
+        {
+            Time.timeScale = 0;
+            pauseScreen.SetActive(true);
+            playImage.SetActive(true);
+            pauseImage.SetActive(false);
+        }
+        else
+        {
+            pauseScreen.SetActive(false);
+            playImage.SetActive(false);
+            pauseImage.SetActive(true);
+            Time.timeScale = 1;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!pauseScreen.activeInHierarchy)
-            {
-                Time.timeScale = 0;
-                pauseScreen.SetActive(true);
-                playImage.SetActive(true);
-                pauseImage.SetActive(false);
-            }
-            else
-            {
-                pauseScreen.SetActive(false);
-                playImage.SetActive(false);
-                pauseImage.SetActive(true);
-                Time.timeScale = 1;
-            }
+            switchSceneStatus();
         }
     }
 
