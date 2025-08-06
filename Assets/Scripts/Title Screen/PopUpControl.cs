@@ -15,10 +15,12 @@ public class PopUpControl : MonoBehaviour
         titleText.text = title;
         descriptionText.text = description;
         closeButton.onClick.AddListener(closePopup);
+        Time.timeScale = 0;
     }
 
     void closePopup()
     {
+        Time.timeScale = 1;
         Destroy(gameObject);
     }
 
