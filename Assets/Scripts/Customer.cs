@@ -52,7 +52,6 @@ public class Customer : MonoBehaviour
         bubble = b;
         waitTime = w;
         sr.sprite = customerSprite;
-        requestTime = Time.time;
     }
 
     void RequestOrder()
