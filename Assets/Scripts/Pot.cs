@@ -34,6 +34,9 @@ public class Pot : MonoBehaviour
 
     public Image progressStatus;
     public GameObject progressBar;
+    
+    [Header("Valid Orders")] 
+    public List<Recipe.RecipeColor> validRecipes;
 
     
     // Start is called before the first frame update
@@ -56,7 +59,7 @@ public class Pot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (RecipeController.instance.isValidRecipe(contents) && !isBoiling)
+        if (CanBoil() && !isBoiling)
         {
             Debug.Log("started boiling");
             StartBoiling();
@@ -75,6 +78,12 @@ public class Pot : MonoBehaviour
         {
             UpdateBoiling();
         }
+    }
+
+    public bool CanBoil()
+    {
+        return RecipeController.instance.isValidRecipe(contents) && 
+            validRecipes.Contains(RecipeController.instance.GetRecipeColor(contents));
     }
 
     public void AddIngredient(Ingredient ing)

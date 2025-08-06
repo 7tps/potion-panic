@@ -268,6 +268,27 @@ public class RecipeController : MonoBehaviour
         return null;
     }
     
+    public Recipe.RecipeColor GetRecipeColor(List<Ingredient> inputArray)
+    {
+        foreach (Recipe recipe in validRecipes)
+        {
+            if (recipe.ingredientTypes.Count == inputArray.Count)
+            {
+                for (int i = 0; i < inputArray.Count; i++)
+                {
+                    if (inputArray[i].type != recipe.ingredientTypes[i])
+                    {
+                        Debug.Log("Content ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
+                        break;
+                    }
+                }
+                return recipe.color;
+            }
+        }
+        Debug.Log("Invalid recipe.");
+        return Recipe.RecipeColor.empty;
+    }
+    
     public float GetBoilTime(List<Ingredient> ingredientsArray)
     {
         if (!isValidRecipe(ingredientsArray))
