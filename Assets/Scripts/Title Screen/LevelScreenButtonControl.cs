@@ -48,7 +48,7 @@ public class LevelScreenButtonControl : MonoBehaviour
 
     void loadLevel2()
     {
-        SceneManager.LoadScene("Tavern");
+        SceneManager.LoadScene("Level 2");
     }
 
     void returnToMenu()
