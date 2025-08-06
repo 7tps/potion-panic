@@ -10,6 +10,7 @@ public class Customer : MonoBehaviour
 
     public Sprite customerSprite;
     public Order order;
+    public GameObject bubble;
     public float waitTime;
     
     private float requestDelay;
@@ -22,8 +23,9 @@ public class Customer : MonoBehaviour
     void Start()
     {
         sr.sprite = customerSprite;
-        requestDelay = Random.Range(0f, 2f);
+        requestDelay = Random.Range(2f, 4f);
         currentWaitTime = waitTime;
+        bubble.SetActive(true);
         StartCoroutine(RequestOrderAfterDelay());
     }
 
@@ -45,10 +47,11 @@ public class Customer : MonoBehaviour
         RequestOrder();
     }
 
-    public void Initialize(Sprite cs, Order o, float w)
+    public void Initialize(Sprite cs, Order o, GameObject b, float w)
     {
         customerSprite = cs;
         order = o;
+        bubble = b;
         waitTime = w;
         sr.sprite = customerSprite;
     }
@@ -57,6 +60,7 @@ public class Customer : MonoBehaviour
     {
         hasRequestedOrder = true;
         order.gameObject.SetActive(true);
+        bubble.SetActive(false);
     }
 
     void OrderFailed()

@@ -13,6 +13,7 @@ public class CustomerSpawner : MonoBehaviour
     public Transform[] customerPositions;
     public Sprite[] customerSprites;
     public Order[] customerOrders;
+    public GameObject[] thinkingBubbles;
     public Customer[] instantiatedCustomers;
     public GameObject customerPrefab;
     
@@ -68,6 +69,10 @@ public class CustomerSpawner : MonoBehaviour
         for (int i = 0; i < customerOrders.Length; i++)
         {
             customerOrders[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < thinkingBubbles.Length; i++)
+        {
+            thinkingBubbles[i].SetActive(false);
         }
         
         if (instantiatedCustomers == null || instantiatedCustomers.Length != customerPositions.Length)
@@ -127,6 +132,7 @@ public class CustomerSpawner : MonoBehaviour
         Transform spawnPosition = customerPositions[index];
         GameObject customerObj = Instantiate(customerPrefab, spawnPosition.position, spawnPosition.rotation);
         Order order = customerOrders[index];
+        GameObject bubble = thinkingBubbles[index];
         Customer customer = customerObj.GetComponent<Customer>();
         instantiatedCustomers[index] = customer;
         
@@ -141,6 +147,7 @@ public class CustomerSpawner : MonoBehaviour
             customer.Initialize(
                 customerSprite, 
                 order, 
+                bubble,
                 Random.Range(10f, 20f)
             );
             return true;
