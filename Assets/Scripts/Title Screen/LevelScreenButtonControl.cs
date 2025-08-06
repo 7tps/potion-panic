@@ -9,6 +9,7 @@ public class LevelScreenButtonControl : MonoBehaviour
 {
     public Button level1Button;
     public Button level2Button;
+    public Button level3Button;
     public Button returnButton;
 
     public Button backButton;
@@ -22,6 +23,7 @@ public class LevelScreenButtonControl : MonoBehaviour
     {
         level2Button.onClick.AddListener(showRecipes);
         level1Button.onClick.AddListener(loadLevel1);
+        level3Button.onClick.AddListener(loadLevel3);
         playButton.onClick.AddListener(loadLevel2);
         backButton.onClick.AddListener(closeRecipes);
         returnButton.onClick.AddListener(returnToMenu);
@@ -49,6 +51,11 @@ public class LevelScreenButtonControl : MonoBehaviour
     void loadLevel2()
     {
         SceneManager.LoadScene("Level 2");
+    }
+
+    void loadLevel3()
+    {
+        SceneManager.LoadScene("Level 3");
     }
 
     void returnToMenu()
