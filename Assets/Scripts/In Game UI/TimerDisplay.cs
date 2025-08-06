@@ -33,7 +33,7 @@ public class TimerDisplay : MonoBehaviour
         else
         {
             Time.timeScale = 0;
-            UIController.instance.failScreen.SetActive(true);
+            UIController.instance.finishGameScreen.SetActive(true);
         }
     }
 

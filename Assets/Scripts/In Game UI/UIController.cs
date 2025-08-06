@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -27,6 +28,12 @@ public class UIController : MonoBehaviour
     public Button backToMenuButton;
     public Button restartLevelButton;
 
+    public GameObject finishGameScreen;
+    public TMP_Text totalCustomerText;
+    public TMP_Text scoreText;
+    public Button playAgainButton;
+    public Button finishBackToMenuButton;
+
     void loadLevelScreen()
     {
         SceneManager.LoadScene("Level Selection");
@@ -46,11 +53,14 @@ public class UIController : MonoBehaviour
         pausePlayButton.onClick.AddListener(switchSceneStatus);
         backToMenuButton.onClick.AddListener(loadLevelScreen);
         restartLevelButton.onClick.AddListener(restartLevel);
+        playAgainButton.onClick.AddListener(restartLevel);
+        finishBackToMenuButton.onClick.AddListener(loadLevelScreen);
 
         failScreen.SetActive(false);
         pauseScreen.SetActive(false);
         pauseImage.SetActive(true);
         playImage.SetActive(false);
+        finishGameScreen.SetActive(false);
 
         Time.timeScale = 1;
     }
