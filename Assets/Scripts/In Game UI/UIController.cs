@@ -67,6 +67,10 @@ public class UIController : MonoBehaviour
 
     void switchSceneStatus()
     {
+        if (failScreen.activeSelf)
+        {
+            return;
+        }
         if (!pauseScreen.activeInHierarchy)
         {
             Time.timeScale = 0;
