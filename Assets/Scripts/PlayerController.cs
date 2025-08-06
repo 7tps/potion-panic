@@ -106,11 +106,15 @@ public class PlayerController : MonoBehaviour
                     {
                         if (heldIngredient.type == RecipeController.IngredientType.emptyBottle)
                         {
-                            Debug.Log("Filled Potion");
-                            pot.CollectPotion();
-                            heldIngredient.type = RecipeController.IngredientType.fullBottle;
-                            heldIngredient.color = pot.contentColor;
-                            heldIngredient.sr.sprite = CustomerSpawner.instance.GetPotionSprite(heldIngredient.color);
+                            if (pot.CollectPotion())
+                            {
+                                Debug.Log("Filled Potion");
+                                heldIngredient.type = RecipeController.IngredientType.fullBottle;
+                                heldIngredient.color = pot.contentColor;
+                                heldIngredient.sr.sprite = CustomerSpawner.instance.GetPotionSprite(heldIngredient.color);
+                                return;
+                            }
+
                             return;
                         }
                         pot.AddIngredient(heldIngredient);
