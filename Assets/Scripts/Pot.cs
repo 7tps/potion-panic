@@ -73,8 +73,6 @@ public class Pot : MonoBehaviour
 
                 break;
         }
-        
-        Recipe.RecipeColor.
     }
 
     // Update is called once per frame
