@@ -34,8 +34,9 @@ public class Pot : MonoBehaviour
 
     public Image progressStatus;
     public GameObject progressBar;
-    
+
     [Header("Valid Orders")] 
+    public bool isCold = false;
     public List<Recipe.RecipeColor> validRecipes;
 
     
@@ -54,6 +55,26 @@ public class Pot : MonoBehaviour
                 }
             }
         }
+        
+        switch (isCold)
+        {
+            case false:
+                for (int i = 0; i < 14; i++)
+                {
+                    validRecipes.Add((Recipe.RecipeColor) i);
+                }
+
+                break;
+            case true:
+                for (int i = 15; i < 29; i++)
+                {
+                    validRecipes.Add((Recipe.RecipeColor) i);
+                }
+
+                break;
+        }
+        
+        Recipe.RecipeColor.
     }
 
     // Update is called once per frame
