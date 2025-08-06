@@ -62,7 +62,7 @@ public class UIController : MonoBehaviour
         playImage.SetActive(false);
         finishGameScreen.SetActive(false);
 
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
     }
 
     void switchSceneStatus()
