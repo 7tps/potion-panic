@@ -167,7 +167,7 @@ public class CustomerSpawner : MonoBehaviour
         return RecipeController.instance.GetRandomRecipe().color;
     }
     
-    Sprite GetPotionSprite(Recipe.RecipeColor color)
+    public Sprite GetPotionSprite(Recipe.RecipeColor color)
     {
         if (potionSprites.ContainsKey(color))
         {

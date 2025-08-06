@@ -24,6 +24,13 @@ public class RecipeController : MonoBehaviour
         public IngredientType type;
         public Sprite sprite;
     }
+    
+    [System.Serializable]
+    public class PotionSpritePair
+    {
+        public Recipe.RecipeColor color;
+        public Sprite sprite;
+    }
 
     [System.Serializable]
     public class IngredientTimePair

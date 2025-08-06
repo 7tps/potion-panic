@@ -147,6 +147,7 @@ public class Pot : MonoBehaviour
         readyToCollect = false;
         contentColor = Recipe.RecipeColor.empty;
         Sprite s = GetRecipeSprite(contentColor);
+        contents.Clear();
         return true;
     }
 
