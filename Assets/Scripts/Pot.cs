@@ -21,6 +21,7 @@ public class Pot : MonoBehaviour
     
     public List<Ingredient> contents;
     public Recipe.RecipeColor contentColor = Recipe.RecipeColor.empty;
+    public Recipe.RecipeColor lastRecipeResultColor = Recipe.RecipeColor.empty;
 
     public Vector2Int[] gridPositions;
 
@@ -128,6 +129,7 @@ public class Pot : MonoBehaviour
         }
         
         contentColor = r.color;
+        lastRecipeResultColor = r.color;
         Sprite s = GetRecipeSprite(r.color);
         if (s == null)
         {
@@ -147,8 +149,18 @@ public class Pot : MonoBehaviour
         readyToCollect = false;
         contentColor = Recipe.RecipeColor.empty;
         Sprite s = GetRecipeSprite(contentColor);
-        contents.Clear();
+        sr.sprite = s;
+        ClearAllIngredients();
         return true;
+    }
+
+    private void ClearAllIngredients()
+    {
+        for (int i = 0; i < contents.Count; i++)
+        {
+            Destroy(contents[i].gameObject);
+        }
+        contents.Clear();
     }
 
     public Sprite GetRecipeSprite(Recipe.RecipeColor type)
