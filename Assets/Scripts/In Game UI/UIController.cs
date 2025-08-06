@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class UIController : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class UIController : MonoBehaviour
     void restartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
     // Start is called before the first frame update
@@ -85,6 +87,7 @@ public class UIController : MonoBehaviour
             pauseImage.SetActive(true);
             Time.timeScale = 1;
         }
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     // Update is called once per frame
