@@ -113,6 +113,14 @@ public class PlayerController : MonoBehaviour
             
             if (heldIngredient != null)
             {
+                if (CustomerSpawner.instance.canPlayerSubmit && heldIngredient.type == RecipeController.IngredientType.fullBottle)
+                {
+                    CustomerSpawner.instance.SubmitOrder(heldIngredient);
+                }
+            }
+            
+            if (heldIngredient != null)
+            {
                 Counter[] counters = FindObjectsOfType<Counter>();
                 foreach (Counter counter in counters)
                 {
@@ -175,6 +183,15 @@ public class PlayerController : MonoBehaviour
                 {
                     if (crate.gridPosition == lookingAtGridBlock && !crate.hasIngredient)
                     {
+                        if (crate.type == RecipeController.IngredientType.emptyBottle)
+                        {
+                            Ingredient i = crate.spawnIngredient();
+                            crate.SetHasIngredient(false);
+                            heldIngredient = i;
+                            i.transform.SetParent(ingredientPosition);
+                            i.transform.localPosition = Vector3.zero;
+                            break;
+                        }
                         crate.spawnIngredient();
                         break;
                     }

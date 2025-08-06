@@ -8,6 +8,10 @@ public class Ingredient : MonoBehaviour
     public RecipeController.IngredientType type;
 
     public SpriteRenderer sr;
+
+    [Header("Bottle Settings")] 
+    public bool isBottle = false;
+    public Recipe.RecipeColor color = Recipe.RecipeColor.empty;
     
     public bool needToCut;
     public bool isCut = false;

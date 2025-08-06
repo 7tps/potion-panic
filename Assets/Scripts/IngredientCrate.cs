@@ -32,7 +32,7 @@ public class IngredientCrate : MonoBehaviour
         
     }
 
-    public void spawnIngredient()
+    public Ingredient spawnIngredient()
     {
         if (!hasIngredient)
         {
@@ -41,7 +41,9 @@ public class IngredientCrate : MonoBehaviour
             i.InitializeWithType(type);
             g.transform.localScale = Vector3.one;
             hasIngredient = true;
+            return i;
         }
+        return null;
     }
 
     public void SetHasIngredient(bool has)

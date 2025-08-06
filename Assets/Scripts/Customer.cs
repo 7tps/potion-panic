@@ -9,7 +9,7 @@ public class Customer : MonoBehaviour
     public SpriteRenderer sr;
 
     public Sprite customerSprite;
-    public Sprite orderSprite;
+    public Order order;
     public float waitTime;
     
     private float requestDelay;
@@ -45,10 +45,18 @@ public class Customer : MonoBehaviour
         RequestOrder();
     }
 
+    public void Initialize(Sprite cs, Order o, float w)
+    {
+        customerSprite = cs;
+        order = o;
+        waitTime = w;
+        sr.sprite = customerSprite;
+    }
+
     void RequestOrder()
     {
         hasRequestedOrder = true;
-        Debug.Log("Customer requested order!");
+        order.gameObject.SetActive(true);
     }
 
     void OrderFailed()
@@ -56,13 +64,5 @@ public class Customer : MonoBehaviour
         orderFailed = true;
         onOrderFailed?.Invoke();
         Debug.Log("Customer order failed!");
-    }
-
-    public void Initialize(Sprite cs, Sprite os, float w)
-    {
-        customerSprite = cs;
-        orderSprite = os;
-        waitTime = w;
-        sr.sprite = customerSprite;
     }
 }

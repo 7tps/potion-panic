@@ -6,9 +6,13 @@ using UnityEngine;
 public class CustomerSpawner : MonoBehaviour
 {
 
+    [SerializeField]
+    public RecipeColorSpritePair[] recipeColorSpritePairs;
+    
     [Header("Customer Settings")]
     public Transform[] customerPositions;
     public Sprite[] customerSprites;
+    public Order[] customerOrders;
     public Customer[] instantiatedCustomers;
     public GameObject customerPrefab;
     
@@ -19,15 +23,17 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField]
     private float nextSpawnTime;
 
+    [Header("Order Submission")]
+    public bool canPlayerSubmit = false;
+
+    public int customerIndex = -1;
+
     [System.Serializable]
     public class RecipeColorSpritePair
     {
         public Recipe.RecipeColor color;
         public Sprite sprite;
     }
-    
-    [SerializeField]
-    public RecipeColorSpritePair[] recipeColorSpritePairs;
     
     private Dictionary<Recipe.RecipeColor, Sprite> potionSprites = new Dictionary<Recipe.RecipeColor, Sprite>();
     
@@ -57,6 +63,11 @@ public class CustomerSpawner : MonoBehaviour
                     potionSprites[pair.color] = pair.sprite;
                 }
             }
+        }
+
+        for (int i = 0; i < customerOrders.Length; i++)
+        {
+            customerOrders[i].gameObject.SetActive(false);
         }
         
         if (instantiatedCustomers == null || instantiatedCustomers.Length != customerPositions.Length)
@@ -115,6 +126,7 @@ public class CustomerSpawner : MonoBehaviour
         
         Transform spawnPosition = customerPositions[index];
         GameObject customerObj = Instantiate(customerPrefab, spawnPosition.position, spawnPosition.rotation);
+        Order order = customerOrders[index];
         Customer customer = customerObj.GetComponent<Customer>();
         instantiatedCustomers[index] = customer;
         
@@ -123,15 +135,27 @@ public class CustomerSpawner : MonoBehaviour
             Recipe.RecipeColor randomColor = GetRandomRecipeColor();
             Sprite customerSprite = customerSprites[Random.Range(0, customerSprites.Length)];
             Sprite potionSprite = GetPotionSprite(randomColor);
+            order.SetSprite(potionSprite);
             
             customer.Initialize(
                 customerSprite, 
-                potionSprite, 
+                order, 
                 Random.Range(10f, 20f)
             );
             return true;
         }
         return false;
+    }
+
+    public void SubmitOrder(Ingredient bottle)
+    {
+        if (instantiatedCustomers[customerIndex].order.color == bottle.color)
+        {
+            Customer c = instantiatedCustomers[customerIndex];
+            Destroy(c.gameObject);
+            instantiatedCustomers[customerIndex] = null;
+            //add logic for score here maybe?
+        }
     }
     
     Recipe.RecipeColor GetRandomRecipeColor()

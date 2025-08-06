@@ -8,6 +8,8 @@ public class RecipeController : MonoBehaviour
 
     public enum IngredientType
     {
+        emptyBottle,
+        fullBottle,
         avocado,
         basil,
         garlic,
@@ -110,7 +112,7 @@ public class RecipeController : MonoBehaviour
         recipe2.ingredientTypes.Add(IngredientType.garlic);
         recipe2.ingredientTypes.Add(IngredientType.ginger);
         recipe2.boilTime = 8.0f;
-        recipe1.color = Recipe.RecipeColor.orange;
+        recipe2.color = Recipe.RecipeColor.orange;
         validRecipes.Add(recipe2);
         
         Recipe recipe3 = new Recipe();
@@ -119,7 +121,7 @@ public class RecipeController : MonoBehaviour
         recipe3.ingredientTypes.Add(IngredientType.parsnip);
         recipe3.ingredientTypes.Add(IngredientType.watermelon);
         recipe3.boilTime = 6.0f;
-        recipe1.color = Recipe.RecipeColor.olive;
+        recipe3.color = Recipe.RecipeColor.olive;
         validRecipes.Add(recipe3);
         
         Recipe recipe4 = new Recipe();
@@ -128,7 +130,7 @@ public class RecipeController : MonoBehaviour
         recipe4.ingredientTypes.Add(IngredientType.ginger);
         recipe4.ingredientTypes.Add(IngredientType.watermelon);
         recipe4.boilTime = 7.0f;
-        recipe1.color = Recipe.RecipeColor.red;
+        recipe4.color = Recipe.RecipeColor.red;
         validRecipes.Add(recipe4);
     }
 
@@ -152,6 +154,7 @@ public class RecipeController : MonoBehaviour
     public Recipe GetRandomRecipe()
     {
         int rand = Random.Range(0, validRecipes.Count);
+        Debug.Log("Random Recipe Index: " + rand);
         return validRecipes[rand];
     }
 
@@ -163,16 +166,14 @@ public class RecipeController : MonoBehaviour
 
     public bool needToCut(IngredientType ingredient)
     {
-        if (ingredient == IngredientType.basil
-            || ingredient == IngredientType.ginger
-            || ingredient == IngredientType.garlic
-            || ingredient == IngredientType.parsnip)
+        if (ingredient == IngredientType.avocado
+            || ingredient == IngredientType.watermelon)
         {
-            return false;
+            return true;
         }
         else 
         {
-            return true;
+            return false;
         }
     }
 
@@ -317,7 +318,8 @@ public class Recipe
         pink,
         darkpurple,
         black,
-        white
+        white,
+        empty
     }
     
     public List<RecipeController.IngredientType> ingredientTypes;
