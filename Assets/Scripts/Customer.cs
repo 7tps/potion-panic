@@ -11,6 +11,7 @@ public class Customer : MonoBehaviour
     public Sprite customerSprite;
     public Order order;
     public GameObject bubble;
+    public ProgressBar progress;
     public float waitTime;
     
     private float requestDelay;
@@ -24,6 +25,7 @@ public class Customer : MonoBehaviour
         requestDelay = Random.Range(2f, 4f);
         currentWaitTime = waitTime;
         bubble.SetActive(true);
+        progress.gameObject.SetActive(true);
         StartCoroutine(RequestOrderAfterDelay());
     }
 
@@ -37,6 +39,7 @@ public class Customer : MonoBehaviour
                 OrderFailed();
             }
         }
+        progress.UpdateProgress(currentWaitTime/waitTime);
     }
 
     IEnumerator RequestOrderAfterDelay()
@@ -45,12 +48,13 @@ public class Customer : MonoBehaviour
         RequestOrder();
     }
 
-    public void Initialize(Sprite cs, Order o, GameObject b, float w)
+    public void Initialize(Sprite cs, Order o, GameObject b, ProgressBar p, float w)
     {
         customerSprite = cs;
         order = o;
         bubble = b;
         waitTime = w;
+        progress = p;
         sr.sprite = customerSprite;
     }
 

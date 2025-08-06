@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CustomerSpawner : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class CustomerSpawner : MonoBehaviour
     public Sprite[] customerSprites;
     public Order[] customerOrders;
     public GameObject[] thinkingBubbles;
+    public GameObject[] progressBars;
     public Customer[] instantiatedCustomers;
     public GameObject customerPrefab;
     
@@ -78,6 +81,10 @@ public class CustomerSpawner : MonoBehaviour
         {
             thinkingBubbles[i].SetActive(false);
         }
+        for (int i = 0; i < progressBars.Length; i++)
+        {
+            progressBars[i].SetActive(false);
+        }
         
         if (instantiatedCustomers == null || instantiatedCustomers.Length != customerPositions.Length)
         {
@@ -138,6 +145,7 @@ public class CustomerSpawner : MonoBehaviour
         GameObject customerObj = Instantiate(customerPrefab, spawnPosition.position, spawnPosition.rotation);
         Order order = customerOrders[index];
         GameObject bubble = thinkingBubbles[index];
+        GameObject progressBar = progressBars[index];
         Customer customer = customerObj.GetComponent<Customer>();
         instantiatedCustomers[index] = customer;
         
@@ -148,11 +156,12 @@ public class CustomerSpawner : MonoBehaviour
             Sprite potionSprite = GetPotionSprite(randomColor);
             order.SetSprite(potionSprite);
             order.color = randomColor;
-            
+
             customer.Initialize(
-                customerSprite, 
-                order, 
+                customerSprite,
+                order,
                 bubble,
+                progressBar.GetComponent<ProgressBar>(),
                 Random.Range(20f, 30f)
             );
             return true;
