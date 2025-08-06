@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class RecipeDisplay : MonoBehaviour
+public class  RecipeDisplay : MonoBehaviour
 {
     public TMP_Text titleText;
     public TMP_Text colorText;

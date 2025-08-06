@@ -18,8 +18,6 @@ public class Customer : MonoBehaviour
     private bool hasRequestedOrder = false;
     private bool orderFailed = false;
     
-    public UnityEvent onOrderFailed;
-    
     void Start()
     {
         sr.sprite = customerSprite;
@@ -66,7 +64,8 @@ public class Customer : MonoBehaviour
     void OrderFailed()
     {
         orderFailed = true;
-        onOrderFailed?.Invoke();
+        Time.timeScale = 0;
+        UIController.instance.failScreen.SetActive(true);
         Debug.Log("Customer order failed!");
     }
 }

@@ -148,7 +148,7 @@ public class CustomerSpawner : MonoBehaviour
                 customerSprite, 
                 order, 
                 bubble,
-                Random.Range(10f, 20f)
+                Random.Range(20f, 30f)
             );
             return true;
         }
