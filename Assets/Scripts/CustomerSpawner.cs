@@ -136,6 +136,7 @@ public class CustomerSpawner : MonoBehaviour
             Sprite customerSprite = customerSprites[Random.Range(0, customerSprites.Length)];
             Sprite potionSprite = GetPotionSprite(randomColor);
             order.SetSprite(potionSprite);
+            order.color = randomColor;
             
             customer.Initialize(
                 customerSprite, 
@@ -147,7 +148,7 @@ public class CustomerSpawner : MonoBehaviour
         return false;
     }
 
-    public void SubmitOrder(Ingredient bottle)
+    public bool SubmitOrder(Ingredient bottle)
     {
         if (instantiatedCustomers[customerIndex].order.color == bottle.color)
         {
@@ -155,7 +156,10 @@ public class CustomerSpawner : MonoBehaviour
             Destroy(c.gameObject);
             instantiatedCustomers[customerIndex] = null;
             //add logic for score here maybe?
+            return false;
         }
+
+        return true;
     }
     
     Recipe.RecipeColor GetRandomRecipeColor()

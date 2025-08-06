@@ -19,11 +19,13 @@ public class Order : MonoBehaviour
     {
         CustomerSpawner.instance.canPlayerSubmit = true;
         CustomerSpawner.instance.customerIndex = orderIndex;
+        Debug.Log("Can submit? true Customer Index: " + orderIndex);
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
         CustomerSpawner.instance.canPlayerSubmit = false;
         CustomerSpawner.instance.customerIndex = -1;
+        Debug.Log("Can submit? false");
     }
 }

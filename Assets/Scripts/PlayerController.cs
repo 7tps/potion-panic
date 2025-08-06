@@ -115,7 +115,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (CustomerSpawner.instance.canPlayerSubmit && heldIngredient.type == RecipeController.IngredientType.fullBottle)
                 {
-                    CustomerSpawner.instance.SubmitOrder(heldIngredient);
+                    if (CustomerSpawner.instance.SubmitOrder(heldIngredient))
+                    {
+                        Destroy(heldIngredient.gameObject);
+                        heldIngredient = null;
+                    }
                 }
             }
             
@@ -183,8 +187,10 @@ public class PlayerController : MonoBehaviour
                 {
                     if (crate.gridPosition == lookingAtGridBlock && !crate.hasIngredient)
                     {
+                        Debug.Log("spawned ingredient");
                         if (crate.type == RecipeController.IngredientType.emptyBottle)
                         {
+                            Debug.Log("spawned bottle");
                             Ingredient i = crate.spawnIngredient();
                             crate.SetHasIngredient(false);
                             heldIngredient = i;
