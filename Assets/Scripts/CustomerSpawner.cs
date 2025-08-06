@@ -23,6 +23,7 @@ public class CustomerSpawner : MonoBehaviour
     public bool autoSpawn = true;
     [SerializeField]
     private float nextSpawnTime;
+    public float spawnTimeInterval = 15f;
 
     [Header("Order Submission")]
     public bool canPlayerSubmit = false;
@@ -99,7 +100,8 @@ public class CustomerSpawner : MonoBehaviour
     
     void SetNextSpawnTime()
     {
-        nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
+        //nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
+        nextSpawnTime = Time.time + spawnTimeInterval;
     }
     
     public bool SpawnCustomer()
