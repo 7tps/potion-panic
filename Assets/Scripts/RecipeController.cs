@@ -362,7 +362,21 @@ public class Recipe
         darkpurple,
         black,
         white,
-        empty
+        empty,
+        coldred,
+        coldbrown,
+        coldorange,
+        coldgreen, 
+        coldolive,
+        coldgray,
+        colddarkblue,
+        coldteal,
+        coldblue,
+        coldpurple,
+        coldpink,
+        colddarkpurple,
+        coldblack,
+        coldwhite,
     }
     
     public List<RecipeController.IngredientType> ingredientTypes;
