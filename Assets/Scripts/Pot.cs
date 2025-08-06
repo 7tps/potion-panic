@@ -20,12 +20,14 @@ public class Pot : MonoBehaviour
     private Dictionary<Recipe.RecipeColor, Sprite> recipeSprites = new Dictionary<Recipe.RecipeColor, Sprite>();
     
     public List<Ingredient> contents;
+    public Recipe.RecipeColor contentColor = Recipe.RecipeColor.empty;
 
     public Vector2Int[] gridPositions;
 
     public SpriteRenderer sr;
     
     public bool isBoiling = false;
+    public bool readyToCollect = false;
     public float boilProgress;
     public float boilTime;
 
@@ -124,6 +126,8 @@ public class Pot : MonoBehaviour
             Debug.Log("Recipe not found.");
             return;
         }
+        
+        contentColor = r.color;
         Sprite s = GetRecipeSprite(r.color);
         if (s == null)
         {
@@ -131,6 +135,19 @@ public class Pot : MonoBehaviour
             return;
         }
         sr.sprite = s;
+        readyToCollect = true;
+    }
+
+    public bool CollectPotion()
+    {
+        if (!readyToCollect)
+        {
+            return false;
+        }
+        readyToCollect = false;
+        contentColor = Recipe.RecipeColor.empty;
+        Sprite s = GetRecipeSprite(contentColor);
+        return true;
     }
 
     public Sprite GetRecipeSprite(Recipe.RecipeColor type)

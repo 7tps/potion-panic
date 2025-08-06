@@ -104,6 +104,13 @@ public class PlayerController : MonoBehaviour
                 {
                     if (pot.IsAtGridPosition(lookingAtGridBlock))
                     {
+                        if (heldIngredient.type == RecipeController.IngredientType.emptyBottle)
+                        {
+                            pot.CollectPotion();
+                            heldIngredient.type = RecipeController.IngredientType.fullBottle;
+                            heldIngredient.color = pot.contentColor;
+                            return;
+                        }
                         pot.AddIngredient(heldIngredient);
                         heldIngredient = null;
                         return;
