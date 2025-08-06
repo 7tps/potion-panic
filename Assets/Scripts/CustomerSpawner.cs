@@ -28,6 +28,9 @@ public class CustomerSpawner : MonoBehaviour
     [Header("Order Submission")]
     public bool canPlayerSubmit = false;
 
+    [Header("Valid Orders")] 
+    public List<Recipe.RecipeColor> validRecipes;
+
     public int customerIndex = -1;
 
     [System.Serializable]
@@ -173,7 +176,8 @@ public class CustomerSpawner : MonoBehaviour
     
     Recipe.RecipeColor GetRandomRecipeColor()
     {
-        return RecipeController.instance.GetRandomRecipe().color;
+        return validRecipes[Random.Range(0, validRecipes.Count)];
+        //return RecipeController.instance.GetRandomRecipe().color;
     }
     
     public Sprite GetPotionSprite(Recipe.RecipeColor color)
