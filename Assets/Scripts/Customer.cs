@@ -52,6 +52,7 @@ public class Customer : MonoBehaviour
         bubble = b;
         waitTime = w;
         sr.sprite = customerSprite;
+        requestTime = Time.time;
     }
 
     void RequestOrder()
@@ -59,6 +60,15 @@ public class Customer : MonoBehaviour
         hasRequestedOrder = true;
         order.gameObject.SetActive(true);
         bubble.SetActive(false);
+    }
+
+    public int GetScore()
+    {
+        float perfect = RecipeController.instance.GetPerfectTime(order.color);
+        
+        float percentage = perfect / (waitTime - currentWaitTime);
+        
+        return (int)(percentage * 100);
     }
 
     void OrderFailed()

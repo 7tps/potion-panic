@@ -160,13 +160,13 @@ public class CustomerSpawner : MonoBehaviour
         if (instantiatedCustomers[customerIndex].order.color == bottle.color)
         {
             Customer c = instantiatedCustomers[customerIndex];
+            Debug.Log(c.GetScore());
             Destroy(c.gameObject);
             instantiatedCustomers[customerIndex] = null;
-            //add logic for score here maybe?
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
     
     Recipe.RecipeColor GetRandomRecipeColor()

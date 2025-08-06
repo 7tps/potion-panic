@@ -158,6 +158,21 @@ public class RecipeController : MonoBehaviour
         }
     }
 
+    public float GetPerfectTime(Recipe.RecipeColor color)
+    {
+        float output = 2f;
+        Recipe r = GetRecipeByColor(color);
+        List<IngredientType> ingredients = r.ingredientTypes;
+        for (int i = 0; i < ingredients.Count; i++)
+        {
+            output += GetIngredientCutTime(ingredients[i]);
+        }
+
+        output += r.boilTime;
+
+        return output;
+    }
+
     public Recipe GetRandomRecipe()
     {
         int rand = Random.Range(0, validRecipes.Count);
