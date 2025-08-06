@@ -165,6 +165,7 @@ public class CustomerSpawner : MonoBehaviour
         if (instantiatedCustomers[customerIndex].order.color == bottle.color)
         {
             Customer c = instantiatedCustomers[customerIndex];
+            c.order.gameObject.SetActive(false);
             Debug.Log(c.GetScore());
             Destroy(c.gameObject);
             instantiatedCustomers[customerIndex] = null;
