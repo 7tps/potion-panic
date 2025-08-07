@@ -72,7 +72,12 @@ public class Customer : MonoBehaviour
         float percentage = perfect / (waitTime - currentWaitTime);
         if (perfect > waitTime - currentWaitTime)
         {
-            percentage = 1;
+            percentage = currentWaitTime / waitTime;
+        }
+        else
+        {
+            percentage = perfect / (waitTime - currentWaitTime);
+            percentage *= 0.9f;
         }
         
         return (int)(percentage * 100);
