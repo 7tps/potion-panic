@@ -17,6 +17,8 @@ public class  RecipeDisplay : MonoBehaviour
     private int maxIndex;
     private int curIndex = 0;
 
+    public Image potionImage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +68,7 @@ public class  RecipeDisplay : MonoBehaviour
             newText += matchIngredientName(cur);
         }
         ingredientsText.text = newText;
+        //potionImage.sprite;
     }
 
     private string matchIngredientName(RecipeController.IngredientType cur)
@@ -98,13 +101,17 @@ public class  RecipeDisplay : MonoBehaviour
         switch (color)
         {
             case Recipe.RecipeColor.green:
-                return "Green";
+                return "Green (Hot)";
+            case Recipe.RecipeColor.coldgreen:
+                return "Green (Cold)";
             case Recipe.RecipeColor.orange:
-                return "Orange";
+                return "Orange (Hot)";
+            case Recipe.RecipeColor.coldorange:
+                return "Orange (Cold)";
             case Recipe.RecipeColor.olive:
-                return "Olive";
+                return "Olive (Hot)";
             case Recipe.RecipeColor.red:
-                return "Red";
+                return "Red (Hot)";
             default:
                 return null;
         }
