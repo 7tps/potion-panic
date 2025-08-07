@@ -185,6 +185,7 @@ public class CustomerSpawner : MonoBehaviour
             c.progress.gameObject.SetActive(false);
             Debug.Log(c.GetScore());
             UIController.instance.addScore(c.GetScore()); //add UI score
+            UIController.instance.incrementTotalCustomer(); //count customer
             Destroy(c.gameObject);
             return true;
         }

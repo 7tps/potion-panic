@@ -39,6 +39,7 @@ public class UIController : MonoBehaviour
 
     public TMP_Text scoreText;
     public int totalScore = 0;
+    public int totalCustomerServed = 0;
 
     void loadLevelScreen()
     {
@@ -61,6 +62,13 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene("Level 3");
         Time.timeScale = 1;
+    }
+
+    public void toggleFinishGameScreen()
+    {
+        totalCustomerText.text = "Total Customer Served: " + totalCustomerServed;
+        finishScoreText.text = "Score: " + totalScore;
+        finishGameScreen.SetActive(true);
     }
 
     // Start is called before the first frame update
@@ -155,5 +163,10 @@ public class UIController : MonoBehaviour
         totalScore += score;
         scoreText.text = totalScore.ToString("D5");
         print("TOTAL SCORE UPDATED" + scoreText.text);
+    }
+
+    public void incrementTotalCustomer()
+    {
+        totalCustomerServed += 1;
     }
 }
