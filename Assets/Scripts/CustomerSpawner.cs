@@ -115,6 +115,12 @@ public class CustomerSpawner : MonoBehaviour
         }
         nextSpawnTime = Time.time + spawnTimeInterval;
     }
+
+    public void SpawnCustomerNow()
+    {
+        SpawnCustomer();
+        SetNextSpawnTime(autoSpawn);
+    }
     
     public bool SpawnCustomer()
     {

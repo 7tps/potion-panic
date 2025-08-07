@@ -45,9 +45,10 @@ public class TutorialSystem : MonoBehaviour
             }
             if (index == 3)
             {
-                if (Time.time - startTime >= 0.001f)
+                if (Time.time - startTime >= 1f)
                 {
                     startTime = Time.time;
+                    CustomerSpawner.instance.SpawnCustomerNow();
                     showNextTutorial();
                 }
             }
