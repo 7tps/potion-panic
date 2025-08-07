@@ -44,19 +44,19 @@ public class Pot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"[{gameObject.name}] Pot Start() called - isCold: {isCold}");
+        //Debug.Log($"[{gameObject.name}] Pot Start() called - isCold: {isCold}");
         
         sr = GetComponent<SpriteRenderer>();
         
         if (recipeColorSpritePairs != null)
         {
-            Debug.Log($"[{gameObject.name}] Setting up recipe sprites - count: {recipeColorSpritePairs.Length}");
+            //Debug.Log($"[{gameObject.name}] Setting up recipe sprites - count: {recipeColorSpritePairs.Length}");
             foreach (var pair in recipeColorSpritePairs)
             {
                 if (pair.sprite != null)
                 {
                     recipeSprites[pair.color] = pair.sprite;
-                    Debug.Log($"[{gameObject.name}] Added sprite for color: {pair.color}");
+                    //Debug.Log($"[{gameObject.name}] Added sprite for color: {pair.color}");
                 }
                 else
                 {
@@ -73,32 +73,32 @@ public class Pot : MonoBehaviour
         if (validRecipes == null)
         {
             validRecipes = new List<Recipe.RecipeColor>();
-            Debug.Log($"[{gameObject.name}] Initialized validRecipes list");
+            //Debug.Log($"[{gameObject.name}] Initialized validRecipes list");
         }
         
-        Debug.Log($"[{gameObject.name}] Before adding recipes - validRecipes count: {validRecipes.Count}");
+        //Debug.Log($"[{gameObject.name}] Before adding recipes - validRecipes count: {validRecipes.Count}");
         
         switch (isCold)
         {
             case false:
-                Debug.Log($"[{gameObject.name}] Adding hot recipes (0-13)");
+                //Debug.Log($"[{gameObject.name}] Adding hot recipes (0-13)");
                 for (int i = 0; i < 14; i++)
                 {
                     validRecipes.Add((Recipe.RecipeColor) i);
-                    Debug.Log($"[{gameObject.name}] Added hot recipe: {(Recipe.RecipeColor)i}");
+                    //Debug.Log($"[{gameObject.name}] Added hot recipe: {(Recipe.RecipeColor)i}");
                 }
                 break;
             case true:
-                Debug.Log($"[{gameObject.name}] Adding cold recipes (15-28)");
+                //Debug.Log($"[{gameObject.name}] Adding cold recipes (15-28)");
                 for (int i = 15; i < 29; i++)
                 {
                     validRecipes.Add((Recipe.RecipeColor) i);
-                    Debug.Log($"[{gameObject.name}] Added cold recipe: {(Recipe.RecipeColor)i}");
+                    //Debug.Log($"[{gameObject.name}] Added cold recipe: {(Recipe.RecipeColor)i}");
                 }
                 break;
         }
         
-        Debug.Log($"[{gameObject.name}] After adding recipes - validRecipes count: {validRecipes.Count}");
+        //Debug.Log($"[{gameObject.name}] After adding recipes - validRecipes count: {validRecipes.Count}");
         
         ClearAllIngredients();
     }

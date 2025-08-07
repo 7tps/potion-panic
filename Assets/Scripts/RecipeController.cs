@@ -163,25 +163,30 @@ public class RecipeController : MonoBehaviour
 
     public Recipe GetRecipeByColor(Recipe.RecipeColor color)
     {
-        switch (color)
+        // Search through all valid recipes to find one with matching color
+        foreach (Recipe recipe in validRecipes)
         {
-            case Recipe.RecipeColor.green:
-                return validRecipes[0];
-            case Recipe.RecipeColor.orange:
-                return validRecipes[1];
-            case Recipe.RecipeColor.olive:
-                return validRecipes[2];
-            case Recipe.RecipeColor.red:
-                return validRecipes[3];
-            default:
-                return null;
+            if (recipe.color == color)
+            {
+                return recipe;
+            }
         }
+        
+        Debug.LogWarning($"No recipe found for color: {color}");
+        return null;
     }
 
     public float GetPerfectTime(Recipe.RecipeColor color)
     {
         float output = 2f;
         Recipe r = GetRecipeByColor(color);
+        
+        if (r == null)
+        {
+            Debug.LogError($"Cannot get perfect time for color {color} - recipe not found!");
+            return output; // Return default time if recipe not found
+        }
+        
         List<IngredientType> ingredients = r.ingredientTypes;
         for (int i = 0; i < ingredients.Count; i++)
         {

@@ -189,8 +189,24 @@ public class CustomerSpawner : MonoBehaviour
     
     Recipe.RecipeColor GetRandomRecipeColor()
     {
-        return validRecipes[Random.Range(0, validRecipes.Count)];
-        //return RecipeController.instance.GetRandomRecipe().color;
+        // Filter validRecipes to only include colors that have corresponding recipes
+        List<Recipe.RecipeColor> availableColors = new List<Recipe.RecipeColor>();
+        
+        foreach (Recipe.RecipeColor color in validRecipes)
+        {
+            if (RecipeController.instance.GetRecipeByColor(color) != null)
+            {
+                availableColors.Add(color);
+            }
+        }
+        
+        if (availableColors.Count == 0)
+        {
+            Debug.LogError("No valid recipe colors found! Using fallback color.");
+            return Recipe.RecipeColor.green; // Fallback to a known valid color
+        }
+        
+        return availableColors[Random.Range(0, availableColors.Count)];
     }
     
     public Sprite GetPotionSprite(Recipe.RecipeColor color)
