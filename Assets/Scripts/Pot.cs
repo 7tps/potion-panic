@@ -161,16 +161,16 @@ public class Pot : MonoBehaviour
         
         if (contents.Count > 0)
         {
-            Debug.Log($"[{gameObject.name}]   - Contents:");
+            //Debug.Log($"[{gameObject.name}]   - Contents:");
             for (int i = 0; i < contents.Count; i++)
             {
                 if (contents[i] != null)
                 {
-                    Debug.Log($"[{gameObject.name}]     [{i}]: {contents[i].type}");
+                    //Debug.Log($"[{gameObject.name}]     [{i}]: {contents[i].type}");
                 }
                 else
                 {
-                    Debug.LogWarning($"[{gameObject.name}]     [{i}]: NULL ingredient!");
+                    //Debug.LogWarning($"[{gameObject.name}]     [{i}]: NULL ingredient!");
                 }
             }
         }
