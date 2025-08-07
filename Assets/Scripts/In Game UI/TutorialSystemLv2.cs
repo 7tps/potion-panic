@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialSystemLv2 : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class TutorialSystemLv2 : MonoBehaviour
     public bool completed = false;
     public int index = 0;
     public int tutorialCount = 0;
-
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +44,9 @@ public class TutorialSystemLv2 : MonoBehaviour
             UIManager.instance.ShowPopupMenu("Tutorial", tutorialTexts[index]);
             index += 1;
             if (index == numOfTutorials)
+            {
                 completed = true;
+            }
         }
     }
 }

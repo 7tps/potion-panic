@@ -31,9 +31,12 @@ public class UIController : MonoBehaviour
 
     public GameObject finishGameScreen;
     public TMP_Text totalCustomerText;
-    public TMP_Text scoreText;
+    public TMP_Text finishScoreText;
     public Button playAgainButton;
     public Button finishBackToMenuButton;
+
+    public TMP_Text scoreText;
+    public int totalScore = 0;
 
     void loadLevelScreen()
     {
@@ -63,6 +66,8 @@ public class UIController : MonoBehaviour
         pauseImage.SetActive(true);
         playImage.SetActive(false);
         finishGameScreen.SetActive(false);
+
+        scoreText.text = totalScore.ToString("D5");
 
         //Time.timeScale = 1;
     }
@@ -124,5 +129,12 @@ public class UIController : MonoBehaviour
             cutProgress.Remove(ing);
             totalCutTime.Remove(ing);
         }
+    }
+
+    public void addScore(int score)
+    {
+        totalScore += score;
+        scoreText.text = totalScore.ToString("D5");
+        print("TOTAL SCORE UPDATED" + scoreText.text);
     }
 }

@@ -178,7 +178,8 @@ public class CustomerSpawner : MonoBehaviour
             instantiatedCustomers[customerIndex] = null;
             c.order.gameObject.SetActive(false);
             c.progress.gameObject.SetActive(false);
-            Debug.Log(c.GetScore()); //add UI score
+            Debug.Log(c.GetScore());
+            UIController.instance.addScore(c.GetScore()); //add UI score
             Destroy(c.gameObject);
             return true;
         }
