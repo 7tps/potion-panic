@@ -93,24 +93,29 @@ public class CustomerSpawner : MonoBehaviour
         
         if (autoSpawn)
         {
-            SetNextSpawnTime();
+            SetNextSpawnTime(autoSpawn);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (autoSpawn && Time.time >= nextSpawnTime)
+        if (Time.time >= nextSpawnTime)
         {
             bool spawned = SpawnCustomer();
-            SetNextSpawnTime();
+            SetNextSpawnTime(autoSpawn);
             Debug.Log("Next spawn time set to: " + nextSpawnTime);
         }
+        
     }
     
-    void SetNextSpawnTime()
+    void SetNextSpawnTime(bool autoSpawn)
     {
-        //nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
+        if (autoSpawn)
+        {
+            nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
+            return;
+        }
         nextSpawnTime = Time.time + spawnTimeInterval;
     }
     
