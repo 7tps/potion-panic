@@ -225,18 +225,44 @@ public class RecipeController : MonoBehaviour
         // Check against valid recipes
         foreach (Recipe recipe in validRecipes)
         {
+            /*
+            Debug.Log("CHECKING RECIPE");
+            for (int j = 0; j < recipe.ingredientTypes.Count; j++)
+            {
+                Debug.Log("   -- " + recipe.ingredientTypes[j]);
+            }
+            */
             if (recipe.ingredientTypes.Count == inputArray.Count)
             {
+                bool output = true;
                 for (int i = 0; i < inputArray.Count; i++)
                 {
                     if (inputArray[i].type != recipe.ingredientTypes[i])
                     {
-                        //Debug.Log("Content ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
-                        return false;
+                        /*
+                        Debug.Log("RECIPE CHECK FAILED");
+                        Debug.Log(" --Correct Recipe");
+                        for (int j = 0; j < recipe.ingredientTypes.Count; j++)
+                        {
+                            Debug.Log("   -- " + recipe.ingredientTypes[j]);
+                        }
+                        Debug.Log(" --Input Recipe");
+                        for (int j = 0; j < recipe.ingredientTypes.Count; j++)
+                        {
+                            Debug.Log("   -- " + inputArray[j].type);
+                        }
+                        Debug.Log("Wrong ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
+                        */
+                        output = false;
+                        break;
                     }
                 }
-                //Debug.Log("is recipe");
-                return true;
+
+                if (output)
+                {
+                    //Debug.Log("is recipe");
+                    return true;
+                }
             }
         }
         
@@ -247,6 +273,7 @@ public class RecipeController : MonoBehaviour
     {
         if (!isRecipe(ingredientsArray))
         {
+            Debug.Log("Recipe Not Found");
             return false;
         }
 
@@ -273,15 +300,20 @@ public class RecipeController : MonoBehaviour
         {
             if (recipe.ingredientTypes.Count == inputArray.Count)
             {
+                bool output = true;
                 for (int i = 0; i < inputArray.Count; i++)
                 {
                     if (inputArray[i].type != recipe.ingredientTypes[i])
                     {
-                        Debug.Log("Content ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
+                        output = false;
                         break;
                     }
                 }
-                return recipe;
+
+                if (output)
+                {
+                    return recipe;
+                }
             }
         }
         Debug.Log("Invalid recipe.");
@@ -294,15 +326,20 @@ public class RecipeController : MonoBehaviour
         {
             if (recipe.ingredientTypes.Count == inputArray.Count)
             {
+                bool output = true;
                 for (int i = 0; i < inputArray.Count; i++)
                 {
                     if (inputArray[i].type != recipe.ingredientTypes[i])
                     {
-                        Debug.Log("Content ingredient: " + inputArray[i].type + " is not " + recipe.ingredientTypes[i]);
+                        output = false;
                         break;
                     }
                 }
-                return recipe.color;
+
+                if (output)
+                {
+                    return recipe.color;
+                }
             }
         }
         Debug.Log("Invalid recipe.");
@@ -320,14 +357,22 @@ public class RecipeController : MonoBehaviour
         {
             if (recipe.ingredientTypes.Count == ingredientsArray.Count)
             {
+                bool output = false;
                 for (int i = 0; i < ingredientsArray.Count; i++)
                 {
                     if (ingredientsArray[i].type != recipe.ingredientTypes[i])
                     {
-                        return -1;
+                        output = false;
+                        break;
                     }
+
+                    output = true;
                 }
-                return recipe.boilTime;
+
+                if (output)
+                {
+                    return recipe.boilTime;
+                }
             }
         }
 
