@@ -25,15 +25,6 @@ public class TutorialSystemLv2 : MonoBehaviour
         tutorialTexts.Add("You may cut avocados by placing them onto any counter and press E, a progress bar will appear to show the progress.\n\nThen, treat the cut avocado as other ingredients and place it into the pot.");
         tutorialTexts.Add("#useImage#");
         numOfTutorials = tutorialTexts.Count;
-        
-        if (PlayerPrefs.GetInt("Multiplayer") == 0)
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            gameObject.SetActive(true);
-        }
     }
 
     // Update is called once per frame

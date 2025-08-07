@@ -36,15 +36,6 @@ public class SecondPlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ingredientPosition = transform.Find("IngredientPosition");
-
-        if (PlayerPrefs.GetInt("Multiplayer") == 0)
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            gameObject.SetActive(true);
-        }
     }
 
     void Update()
