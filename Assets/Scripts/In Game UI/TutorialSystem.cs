@@ -45,7 +45,7 @@ public class TutorialSystem : MonoBehaviour
             }
             if (index == 3)
             {
-                if (Time.time - startTime >= 17.0f)
+                if (Time.time - startTime >= 0.001f)
                 {
                     startTime = Time.time;
                     showNextTutorial();
@@ -69,7 +69,7 @@ public class TutorialSystem : MonoBehaviour
             }
             if (index == 6)
             {
-                if (Time.time - startTime >= 6.0f)
+                if (Time.time - startTime >= 12.0f)
                 {
                     startTime = Time.time;
                     showNextTutorial();
