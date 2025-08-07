@@ -278,7 +278,7 @@ public class RecipeController : MonoBehaviour
     {
         if (!isRecipe(ingredientsArray))
         {
-            Debug.Log("Recipe Not Found");
+            //Debug.Log("Recipe Not Found");
             return false;
         }
 
