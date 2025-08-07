@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class TitleScreenButtonControl : MonoBehaviour
 {
     public Button startGameButton;
+    public Button multiplayerButton;
     public Button keymapsButton;
     public Button settingsButton;
     public Button quitGameButton;
@@ -26,6 +27,7 @@ public class TitleScreenButtonControl : MonoBehaviour
         settingsPanel.SetActive(false);
 
         startGameButton.onClick.AddListener(startGame);
+        multiplayerButton.onClick.AddListener(startMP);
         keymapsButton.onClick.AddListener(showKeymaps);
         settingsButton.onClick.AddListener(showSettings);
         quitGameButton.onClick.AddListener(quitGame);
@@ -33,6 +35,11 @@ public class TitleScreenButtonControl : MonoBehaviour
         keymap_returnButton.onClick.AddListener(closeKeymaps);
 
         settings_returnButton.onClick.AddListener(closeSettings);
+    }
+
+    void startMP()
+    {
+        SceneManager.LoadScene("MP Level Selection");
     }
 
     void startGame()
