@@ -114,6 +114,15 @@ public class RecipeController : MonoBehaviour
         recipe1.color = Recipe.RecipeColor.green;
         validRecipes.Add(recipe1);
         
+        Recipe coldrecipe1 = new Recipe();
+        coldrecipe1.ingredientTypes = new List<IngredientType>();
+        coldrecipe1.ingredientTypes.Add(IngredientType.avocado);
+        coldrecipe1.ingredientTypes.Add(IngredientType.basil);
+        coldrecipe1.ingredientTypes.Add(IngredientType.coldModifier);
+        coldrecipe1.boilTime = 5.0f;
+        coldrecipe1.color = Recipe.RecipeColor.coldgreen;
+        validRecipes.Add(coldrecipe1);
+        
         Recipe recipe2 = new Recipe();
         recipe2.ingredientTypes = new List<IngredientType>();
         recipe2.ingredientTypes.Add(IngredientType.basil);
@@ -122,6 +131,16 @@ public class RecipeController : MonoBehaviour
         recipe2.boilTime = 8.0f;
         recipe2.color = Recipe.RecipeColor.orange;
         validRecipes.Add(recipe2);
+        
+        Recipe coldrecipe2 = new Recipe();
+        coldrecipe2.ingredientTypes = new List<IngredientType>();
+        coldrecipe2.ingredientTypes.Add(IngredientType.basil);
+        coldrecipe2.ingredientTypes.Add(IngredientType.coldModifier);
+        coldrecipe2.ingredientTypes.Add(IngredientType.garlic);
+        coldrecipe2.ingredientTypes.Add(IngredientType.ginger);
+        coldrecipe2.boilTime = 8.0f;
+        coldrecipe2.color = Recipe.RecipeColor.coldorange;
+        validRecipes.Add(coldrecipe2);
         
         Recipe recipe3 = new Recipe();
         recipe3.ingredientTypes = new List<IngredientType>();
