@@ -211,7 +211,11 @@ public class PlayerController : MonoBehaviour
                             i.transform.localPosition = Vector3.zero;
                             break;
                         }
-                        crate.spawnIngredient();
+                        Ingredient ing = crate.spawnIngredient();
+                        crate.SetHasIngredient(false);
+                        heldIngredient = ing;
+                        ing.transform.SetParent(ingredientPosition);
+                        ing.transform.localPosition = Vector3.zero;
                         break;
                     }
                 }

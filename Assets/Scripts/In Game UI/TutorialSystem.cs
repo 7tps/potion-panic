@@ -21,8 +21,8 @@ public class TutorialSystem : MonoBehaviour
         startTime = Time.time;
         UIManager.instance.ShowPopupMenu("Welcome!", "Welcome to Potion Panic! Here's a quick tutorial to get you started!\n");
         tutorialTexts.Add("Look below, customers will come to your potion shop very soon, they will order a potion with the specific color.");
-        tutorialTexts.Add("The timer on the upper-left shows the total time you have.\n\nYou can pause the game using the button on the upper-right or Esc key\n\nThe number left of the pause button is your current score.");
-        tutorialTexts.Add("The pause screen shows the recipes of potions that customers might order in this level.");
+        tutorialTexts.Add("The timer in the upper-left shows the total time you have.\n\nYou can pause the game using the button in the upper-right or the Esc key\n\nThe number to the left of the pause button is your current score.");
+        tutorialTexts.Add("The pause screen shows all of the recipes of the potions that customers might order in this level.");
         tutorialTexts.Add("A customer just showed up! They ordered an orange potion.\n\nRemember you may check the recipes in the pause screen.");
         tutorialTexts.Add("Go to one of the crates, press Spacebar to take out an ingredient out of the crate\n\nPress Spacebar again to pick up the ingredient.");
         tutorialTexts.Add("Go in front of the pot to put the ingredient in.");
@@ -45,9 +45,10 @@ public class TutorialSystem : MonoBehaviour
             }
             if (index == 3)
             {
-                if (Time.time - startTime >= 17.0f)
+                if (Time.time - startTime >= 1f)
                 {
                     startTime = Time.time;
+                    CustomerSpawner.instance.SpawnCustomerNow();
                     showNextTutorial();
                 }
             }
@@ -69,7 +70,7 @@ public class TutorialSystem : MonoBehaviour
             }
             if (index == 6)
             {
-                if (Time.time - startTime >= 6.0f)
+                if (Time.time - startTime >= 12.0f)
                 {
                     startTime = Time.time;
                     showNextTutorial();

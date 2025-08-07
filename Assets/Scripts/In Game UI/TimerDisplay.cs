@@ -9,7 +9,10 @@ public class TimerDisplay : MonoBehaviour
     public TMP_Text timerText;
 
     public float timeLimit = 70f;
+    public int remainingTimeInSeconds = 0;
     private float startTime;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,7 @@ public class TimerDisplay : MonoBehaviour
     {
         float timePassed = Time.time - startTime;
         float remainingTime = timeLimit - timePassed;
-        int remainingTimeInSeconds = (int)remainingTime;
+        remainingTimeInSeconds = (int)remainingTime;
 
         if (remainingTimeInSeconds >= 0)
         {
@@ -33,7 +36,7 @@ public class TimerDisplay : MonoBehaviour
         else
         {
             Time.timeScale = 0;
-            UIController.instance.finishGameScreen.SetActive(true);
+            UIController.instance.toggleFinishGameScreen();
         }
     }
 
