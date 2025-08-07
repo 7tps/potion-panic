@@ -16,6 +16,7 @@ public class RecipeController : MonoBehaviour
         ginger,
         parsnip,
         watermelon,
+        coldModifier
     }
 
     [System.Serializable]

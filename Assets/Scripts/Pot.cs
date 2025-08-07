@@ -37,6 +37,7 @@ public class Pot : MonoBehaviour
 
     [Header("Valid Orders")] 
     public bool isCold = false;
+    public GameObject coldIngredientPrefab;
     public List<Recipe.RecipeColor> validRecipes;
 
     
@@ -139,7 +140,7 @@ public class Pot : MonoBehaviour
             {
                 recipeCheck.Add(contents[i]);
             }
-            contents.Clear();
+            ClearAllIngredients();
             progressBar.SetActive(false);
             EndBoiling(recipeCheck);
         }
@@ -189,6 +190,20 @@ public class Pot : MonoBehaviour
             Destroy(contents[i].gameObject);
         }
         contents.Clear();
+        if (isCold)
+        {
+            contents.Add(SpawnColdIngredient());
+        }
+    }
+
+    private Ingredient SpawnColdIngredient()
+    {
+        GameObject g = Instantiate(coldIngredientPrefab, transform.position, Quaternion.identity);
+        Ingredient i = g.GetComponent<Ingredient>();
+        i.InitializeWithType(RecipeController.IngredientType.coldModifier);
+        g.transform.localScale = Vector3.one;
+        g.SetActive(false);
+        return i;
     }
 
     public Sprite GetRecipeSprite(Recipe.RecipeColor type)
