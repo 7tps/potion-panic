@@ -35,6 +35,8 @@ public class UIController : MonoBehaviour
     public Button playAgainButton;
     public Button finishBackToMenuButton;
 
+    public int curLevel = 0;
+
     public TMP_Text scoreText;
     public int totalScore = 0;
 
@@ -49,6 +51,18 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    void loadLevel2()
+    {
+        SceneManager.LoadScene("Level 2");
+        Time.timeScale = 1;
+    }
+
+    void loadLevel3()
+    {
+        SceneManager.LoadScene("Level 3");
+        Time.timeScale = 1;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +72,12 @@ public class UIController : MonoBehaviour
         pausePlayButton.onClick.AddListener(switchSceneStatus);
         backToMenuButton.onClick.AddListener(loadLevelScreen);
         restartLevelButton.onClick.AddListener(restartLevel);
-        playAgainButton.onClick.AddListener(restartLevel);
+        if (curLevel == 1)
+            playAgainButton.onClick.AddListener(loadLevel2);
+        else if (curLevel == 2)
+            playAgainButton.onClick.AddListener(loadLevel3);
+        else if (curLevel == 3)
+            playAgainButton.onClick.AddListener(restartLevel);
         finishBackToMenuButton.onClick.AddListener(loadLevelScreen);
 
         failScreen.SetActive(false);
