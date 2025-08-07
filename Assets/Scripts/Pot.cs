@@ -106,15 +106,21 @@ public class Pot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
         if (CanBoil() && !isBoiling)
         {
             Debug.Log($"[{gameObject.name}] started boiling");
             StartBoiling();
         }
-        */
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (!isBoiling)
+            {
+                ClearAllIngredients();
+            }
+        }
         
+        /*
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (CanBoil() && !isBoiling)
@@ -123,6 +129,7 @@ public class Pot : MonoBehaviour
                 StartBoiling();
             }
         }
+        */
         
 
         if (isBoiling)
