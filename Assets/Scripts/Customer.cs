@@ -70,6 +70,10 @@ public class Customer : MonoBehaviour
         float perfect = RecipeController.instance.GetPerfectTime(order.color);
         
         float percentage = perfect / (waitTime - currentWaitTime);
+        if (perfect > waitTime - currentWaitTime)
+        {
+            percentage = 1;
+        }
         
         return (int)(percentage * 100);
     }
