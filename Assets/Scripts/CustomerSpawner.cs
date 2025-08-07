@@ -91,10 +91,7 @@ public class CustomerSpawner : MonoBehaviour
             instantiatedCustomers = new Customer[customerPositions.Length];
         }
         
-        if (autoSpawn)
-        {
-            SetNextSpawnTime(autoSpawn);
-        }
+        SetNextSpawnTime(autoSpawn);
     }
 
     // Update is called once per frame
