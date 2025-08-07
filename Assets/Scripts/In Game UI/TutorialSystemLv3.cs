@@ -22,6 +22,15 @@ public class TutorialSystemLv3 : MonoBehaviour
         UIManager.instance.ShowPopupMenu("Welcome!", "Welcome to Level 3!\n\nIn this level, you may use 2 different pots to cook two variant of a recipe.");
         tutorialTexts.Add("The pot on the center-left side still functions as a hot stove, and the potions produced are square bottles.\n\nThe center-right pot functions as a cold stove, producing rounded bottle versions.\n\nYou should pay attention to the variant the customer requested.");
         numOfTutorials = tutorialTexts.Count;
+        
+        if (PlayerPrefs.GetInt("Multiplayer") == 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame

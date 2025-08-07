@@ -28,6 +28,15 @@ public class TutorialSystem : MonoBehaviour
         tutorialTexts.Add("Go in front of the pot to put the ingredient in.");
         tutorialTexts.Add("Go to the bottle cabinet to get a potion bottle.\n\nThen fill it in front of the pot.\n\nAfter filling, hand it to the customer!");
         numOfTutorials = tutorialTexts.Count;
+        
+        if (PlayerPrefs.GetInt("Multiplayer") == 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame

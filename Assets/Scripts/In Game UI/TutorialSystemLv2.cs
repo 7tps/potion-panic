@@ -22,6 +22,15 @@ public class TutorialSystemLv2 : MonoBehaviour
         UIManager.instance.ShowPopupMenu("Welcome!", "Welcome to Level 2!\n\nIn this level, the customer may order a green potion, which includes avocados that require you to cut.");
         tutorialTexts.Add("You may cut avocados by placing them onto any counter and press E, a progress bar will appear to show the progress.\n\nThen, treat the cut avocado as other ingredients and place it into the pot.");
         numOfTutorials = tutorialTexts.Count;
+        
+        if (PlayerPrefs.GetInt("Multiplayer") == 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
