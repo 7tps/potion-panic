@@ -19,6 +19,9 @@ public class SecondPlayerController : MonoBehaviour
     private Ingredient heldIngredient;
 
     public GameObject progressBarPrefab;
+
+    public Animator anim;
+    public string animationParam = "lastDirection";
     
     void Awake()
     {
@@ -59,12 +62,39 @@ public class SecondPlayerController : MonoBehaviour
         Vector2 movement = new Vector2(movementInput[0], movementInput[1]).normalized;
         rb.velocity = movement * moveSpeed;
         
+        SetAnimationParam(movement);
+        
         if (movement.magnitude > 0.1f)
         {
             lastDirection = movement;
         }
 
         lookingAtGridBlock = GetLookingAtGridBlock();
+    }
+
+    public void SetAnimationParam(Vector2 direction)
+    {
+        int animationParamValue = 0;
+        if (direction != Vector2.zero)
+        {
+            if (direction[1] > 0.1f)
+            {
+                animationParamValue = 1;
+            }
+            else if (direction[1] < -0.1f)
+            {
+                animationParamValue = 2;
+            }
+            else if (direction[0] > 0.1f)
+            {
+                animationParamValue = 3;
+            }
+            else if (direction[0] < -0.1f)
+            {
+                animationParamValue = 4;
+            }
+        }
+        anim.SetInteger(animationParam, animationParamValue);
     }
 
     void HandleInteraction()
