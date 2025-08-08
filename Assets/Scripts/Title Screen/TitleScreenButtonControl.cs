@@ -20,21 +20,70 @@ public class TitleScreenButtonControl : MonoBehaviour
     public GameObject keymapsPanel;
     public GameObject settingsPanel;
 
+    public Button muteButton;
+    public GameObject playImage;
+    public GameObject muteImage;
+    public int muteStatus = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         keymapsPanel.SetActive(false);
         settingsPanel.SetActive(false);
 
+        muteStatus = PlayerPrefs.GetInt("isAudioEnabled");
+        if (muteStatus == 1)
+        {
+            showMuteImage();
+        }
+        else
+        {
+            showPlayImage();
+        }
+
         startGameButton.onClick.AddListener(startGame);
         multiplayerButton.onClick.AddListener(startMP);
         keymapsButton.onClick.AddListener(showKeymaps);
         settingsButton.onClick.AddListener(showSettings);
         quitGameButton.onClick.AddListener(quitGame);
+        muteButton.onClick.AddListener(toggleVolume);
 
         keymap_returnButton.onClick.AddListener(closeKeymaps);
 
         settings_returnButton.onClick.AddListener(closeSettings);
+
+    }
+
+    void toggleVolume()
+    {
+        if (muteStatus == 1)
+        {
+            MusicManager.Instance.VolumeOn();
+            AudioManager.instance.VolumeOn();
+            showPlayImage();
+            muteStatus = 0;
+            PlayerPrefs.SetInt("isAudioEnabled", muteStatus);
+        }
+        else
+        {
+            MusicManager.Instance.VolumeOff();
+            AudioManager.instance.VolumeOff();
+            showMuteImage();
+            muteStatus = 1;
+            PlayerPrefs.SetInt("isAudioEnabled", muteStatus);
+        }
+    }
+
+    void showPlayImage()
+    {
+        playImage.SetActive(true);
+        muteImage.SetActive(false);
+    }
+
+    void showMuteImage()
+    {
+        playImage.SetActive(false);
+        muteImage.SetActive(true);
     }
 
     void startMP()
@@ -51,24 +100,28 @@ public class TitleScreenButtonControl : MonoBehaviour
     {
         if (settingsPanel.activeInHierarchy)
             closeSettings();
+        muteButton.gameObject.SetActive(false);
         keymapsPanel.SetActive(true);
     }
 
     void closeKeymaps()
     {
         keymapsPanel.SetActive(false);
+        muteButton.gameObject.SetActive(true);
     }
 
     void showSettings()
     {
         if (keymapsPanel.activeInHierarchy)
             closeKeymaps();
+        muteButton.gameObject.SetActive(false);
         settingsPanel.SetActive(true);
     }
 
     void closeSettings()
     {
         settingsPanel.SetActive(false);
+        muteButton.gameObject.SetActive(true);
     }
 
     void quitGame()
