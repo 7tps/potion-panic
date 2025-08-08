@@ -180,7 +180,6 @@ public class Pot : MonoBehaviour
 
     public void AddIngredient(Ingredient ing)
     {
-        Debug.Log($"[{gameObject.name}] AddIngredient() called with: {ing.type}");
         
         if (ing == null)
         {
@@ -190,19 +189,22 @@ public class Pot : MonoBehaviour
         
         contents.Add(ing);
         contents = contents.OrderBy(x => x.type.ToString()).ToList();
-        
-        Debug.Log($"[{gameObject.name}] After adding ingredient - contents count: {contents.Count}");
-        for (int i = 0; i < contents.Count; i++)
+
+        if (isCold)
         {
-            if (contents[i] != null)
+            if (contents.Count > 1)
             {
-                Debug.Log($"[{gameObject.name}]   [{i}]: {contents[i].type}");
-            }
-            else
-            {
-                Debug.LogWarning($"[{gameObject.name}]   [{i}]: NULL ingredient!");
+                contentColor = Recipe.RecipeColor.boiling;
             }
         }
+        else
+        {
+            if (contents.Count > 0)
+            {
+                contentColor = Recipe.RecipeColor.boiling;
+            }
+        }
+        sr.sprite = GetRecipeSprite(contentColor);
         
         ing.gameObject.SetActive(false);
     }

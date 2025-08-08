@@ -447,6 +447,7 @@ public class Recipe
         colddarkpurple,
         coldblack,
         coldwhite,
+        boiling
     }
     
     public List<RecipeController.IngredientType> ingredientTypes;
