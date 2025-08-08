@@ -329,8 +329,6 @@ public class Pot : MonoBehaviour
 
     private void ClearAllIngredients()
     {
-        Debug.Log($"[{gameObject.name}] ClearAllIngredients() called - contents count: {contents.Count}");
-        
         for (int i = 0; i < contents.Count; i++)
         {
             if (contents[i] != null)
@@ -342,19 +340,18 @@ public class Pot : MonoBehaviour
         
         if (isCold)
         {
-            Debug.Log($"[{gameObject.name}] Spawning cold ingredient");
             if (coldIngredientPrefab != null)
             {
                 AddIngredient(SpawnColdIngredient());
-                Debug.Log($"[{gameObject.name}] Cold ingredient spawned successfully");
             }
             else
             {
                 Debug.LogError($"[{gameObject.name}] coldIngredientPrefab is null!");
             }
         }
-        
-        Debug.Log($"[{gameObject.name}] After clearing - contents count: {contents.Count}");
+
+        contentColor = Recipe.RecipeColor.empty;
+        sr.sprite = GetRecipeSprite(contentColor);
     }
 
     private Ingredient SpawnColdIngredient()
