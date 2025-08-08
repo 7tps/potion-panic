@@ -16,21 +16,31 @@ public class TutorialSystemLv2 : MonoBehaviour
     public int tutorialCount = 0;
     public int imageIndex = 0;
 
+    public bool isMP = false;
+
     // Start is called before the first frame update
     void Start()
     {
         //print("POPOPOPOPOP");
         startTime = Time.time;
-        UIManager.instance.ShowPopupMenu("Welcome!", "Welcome to Level 2!\n\nIn this level, the customer may order a green potion, which includes avocados that require you to cut.");
-        tutorialTexts.Add("You may cut avocados by placing them onto any counter and press E, a progress bar will appear to show the progress.\n\nThen, treat the cut avocado as other ingredients and place it into the pot.");
-        tutorialTexts.Add("#useImage#");
-        numOfTutorials = tutorialTexts.Count;
+
+        if (isMP)
+        {
+            UIManager.instance.ShowPopupMenu("Welcome!", "Welcome to Level 2!\n\nIn this level, the customer may order a green potion, which includes avocados that require you to cut.");
+        }
+        else
+        {
+            UIManager.instance.ShowPopupMenu("Welcome!", "Welcome to Level 2!\n\nIn this level, the customer may order a green potion, which includes avocados that require you to cut.");
+            tutorialTexts.Add("You may cut avocados by placing them onto any counter and press E, a progress bar will appear to show the progress.\n\nThen, treat the cut avocado as other ingredients and place it into the pot.");
+            tutorialTexts.Add("#useImage#");
+            numOfTutorials = tutorialTexts.Count;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!completed)
+        if (!completed && index != numOfTutorials)
         {
             if (Time.time - startTime >= 0.001f)
             {
