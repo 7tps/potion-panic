@@ -41,9 +41,14 @@ public class UIController : MonoBehaviour
     public int totalScore = 0;
     public int totalCustomerServed = 0;
 
+    public bool isMultiplayer = false;
+
     void loadLevelScreen()
     {
-        SceneManager.LoadScene("Level Selection");
+        if (isMultiplayer)
+            SceneManager.LoadScene("MP Level Selection");
+        else
+            SceneManager.LoadScene("Level Selection");
     }
 
     void restartLevel()
@@ -54,14 +59,20 @@ public class UIController : MonoBehaviour
 
     void loadLevel2()
     {
-        SceneManager.LoadScene("Level 2");
         Time.timeScale = 1;
+        if (isMultiplayer)
+            SceneManager.LoadScene("MP Level 2");
+        else
+            SceneManager.LoadScene("Level 2");
     }
 
     void loadLevel3()
     {
-        SceneManager.LoadScene("Level 3");
         Time.timeScale = 1;
+        if (isMultiplayer)
+            SceneManager.LoadScene("MP Level 3");
+        else
+            SceneManager.LoadScene("Level 3");
     }
 
     public void toggleFinishGameScreen()
