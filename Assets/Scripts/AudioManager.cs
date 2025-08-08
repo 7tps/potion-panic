@@ -58,4 +58,14 @@ public class AudioManager : MonoBehaviour
     {
         AudioManager.instance.PlaySFX(angrySFX);
     }
+    
+    public void VolumeOn()
+    {
+        source.volume = 1;
+    }
+
+    public void VolumeOff()
+    {
+        source.volume = 0;
+    }
 }

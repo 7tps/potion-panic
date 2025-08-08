@@ -6,6 +6,8 @@ public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance;
 
+    public AudioSource source;
+
     void Awake()
     {
       if (Instance == null)
@@ -17,6 +19,16 @@ public class MusicManager : MonoBehaviour
          {
             Destroy(gameObject);
          }
+    }
+    
+    public void VolumeOn()
+    {
+        source.volume = 1;
+    }
+
+    public void VolumeOff()
+    {
+        source.volume = 0;
     }
 
 }
