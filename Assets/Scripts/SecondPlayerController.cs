@@ -99,7 +99,7 @@ public class SecondPlayerController : MonoBehaviour
 
     void HandleInteraction()
     {
-        if (Input.GetKey(KeyCode.RightControl))
+        if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.RightShift))
         {
             Counter[] counters = FindObjectsOfType<Counter>();
             foreach (Counter counter in counters)
