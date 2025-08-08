@@ -207,6 +207,8 @@ public class Pot : MonoBehaviour
         sr.sprite = GetRecipeSprite(contentColor);
         
         ing.gameObject.SetActive(false);
+        
+        AudioManager.instance.PlaySplashSFX();
     }
     
     public void StartBoiling()
@@ -352,6 +354,7 @@ public class Pot : MonoBehaviour
 
         contentColor = Recipe.RecipeColor.empty;
         sr.sprite = GetRecipeSprite(contentColor);
+        AudioManager.instance.PlaySplashSFX();
     }
 
     private Ingredient SpawnColdIngredient()
