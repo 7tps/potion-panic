@@ -68,7 +68,7 @@ public class  RecipeDisplay : MonoBehaviour
             newText += matchIngredientName(cur);
         }
         ingredientsText.text = newText;
-        //potionImage.sprite;
+        potionImage.sprite = GetRecipeSprite.instance.GetPotionSprite(color);
     }
 
     private string matchIngredientName(RecipeController.IngredientType cur)
